@@ -175,6 +175,15 @@
   </style>
 </head>
 <body class="bg-[#0a0a12] text-slate-200 smooth">
+  <!-- STATUS BAR: Content is populated from status.json only when a message exists. -->
+  <div id="site-status-bar" class="hidden relative z-[70] border-b border-amber-300/20 bg-amber-400 px-4 py-3 text-center text-sm text-amber-950 shadow-lg" role="alert" aria-live="polite">
+    <div class="mx-auto flex max-w-screen-xl items-center justify-center gap-2">
+      <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+      <span id="site-status-title" class="font-bold"></span>
+      <span id="site-status-message"></span>
+    </div>
+  </div>
+
   <!-- NAVBAR -->
   <nav class="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a12]/95 backdrop-blur-xl">
     <div class="max-w-screen-xl mx-auto">
@@ -1018,6 +1027,34 @@
   </footer>
 
   <script>
+    // Shows the notice only if /status.json contains a non-empty "message".
+    // Example: { "title": "UYARI", "message": "SUNUCU BAKIMDA, LİDERLİK DEVRE DIŞI" }
+    async function loadSiteStatus() {
+      const bar = document.getElementById('site-status-bar');
+      const title = document.getElementById('site-status-title');
+      const message = document.getElementById('site-status-message');
+
+      try {
+        // Same-origin URL works both on GitHub Pages and on a custom domain.
+        // The timestamp avoids GitHub Pages/browser cache delaying an urgent notice.
+        const response = await fetch(`./status.json?v=${Date.now()}`, { cache: 'no-store' });
+        if (!response.ok) return;
+
+        const status = await response.json();
+        if (!status || typeof status !== 'object' || typeof status.message !== 'string' || !status.message.trim()) return;
+
+        const statusTitle = typeof status.title === 'string' ? status.title.trim() : '';
+        title.textContent = statusTitle ? `${statusTitle}:` : '';
+        message.textContent = status.message.trim();
+        bar.classList.remove('hidden');
+      } catch (error) {
+        // Empty, invalid, or missing JSON deliberately leaves the bar hidden.
+        console.info('[Further Engine] No site status message to display.');
+      }
+    }
+
+    loadSiteStatus();
+
     // Tailwind script
     function initTailwind() {
       document.documentElement.style.setProperty('--accent', '#6366f1');
