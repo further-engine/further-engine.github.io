@@ -1,0 +1,29 @@
+name: CSS up to date
+
+# assets/css/app.css is generated from src/input.css and committed to the repo
+# (GitHub Pages serves it as-is, no build step runs on deploy). This job fails
+# if someone edits src/input.css or the markup without running `npm run build`.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci || npm install
+      - run: npm run build
+      - name: Fail if assets/css/app.css is stale
+        run: |
+          if ! git diff --quiet -- assets/css/app.css; then
+            echo "::error::assets/css/app.css is out of date. Run 'npm run build' and commit the result."
+            git diff --stat -- assets/css/app.css
+            exit 1
+          fi
+          echo "CSS is up to date."
