@@ -221,10 +221,12 @@
       window.scrollTo(0, 0);
       
       // Load leaderboard if needed
-      if (id === 'online' && !lbLoaded) {
+      if ((id === 'online' || id === 'home') && !lbLoaded) {
         lbLoaded = true;
         fetchLB();
         if (currentLBTab === 'achievements') fetchAchievementLB();
+      } else if(id==='home' && lbLoaded && allData && allData.length){
+        try{ updateHomePreview(); }catch(e){}
       }
       
       closeUserMenu();
@@ -1812,41 +1814,73 @@
       return init;
     }
 
-    function renderPodium(data) {
-      const podium = document.getElementById('podium');
-      if (!podium) return;
+    function profileHref(username){
+      if(!username) return '#/leaderboard';
+      return '#/u/' + encodeURIComponent(username);
+    }
+    function usernameLinkHtml(username, cls){
+      var safe = escapeHtml(username || 'Unknown');
+      var href = profileHref(username);
+      var c = cls || 'font-medium truncate hover:text-violet-300 hover:underline underline-offset-2 transition-colors';
+      return '<a href="' + href + '" class="' + c + '" title="View profile: ' + safe + '">' + safe + '</a>';
+    }
 
-      if (!data.length) { podium.style.display = 'none'; return; }
-      podium.style.display = 'flex';
+    function renderPodium(data) {
+      // support both old IDs (podium/pod1) and new IDs (lb-podium/lb-pod-1) used in sniro light theme
+      const podium = document.getElementById('podium') || document.getElementById('lb-podium');
+      if (!podium) return;
+      if (!data || !data.length) { podium.style.display = 'none'; return; }
+      podium.style.display = 'grid';
 
       const isScore = currentLBTab === 'score';
 
       [1, 2, 3].forEach(function (n) {
-        const card = document.getElementById('pod' + n);
+        const card = document.getElementById('pod' + n) || document.getElementById('lb-pod-' + n);
         const p = data[n - 1];
         if (!card) return;
         if (!p) { card.style.display = 'none'; return; }
         card.style.display = '';
 
-        document.getElementById('pod' + n + '-av').innerHTML = lbAvatarHtml(p);
+        var avEl = document.getElementById('pod' + n + '-av');
+        if (avEl) {
+          avEl.innerHTML = lbAvatarHtml(p, 56);
+          avEl.style.cursor = 'pointer';
+          avEl.onclick = (function(u){ return function(){ window.location.hash = profileHref(u); }; })(p.username);
+          // also make sure avatar is visible: wrap with link style
+          avEl.title = 'View ' + (p.username||'') + '\'s profile';
+        }
 
-        const nameEl = document.getElementById('pod' + n + '-name');
-        nameEl.textContent = p.username || 'Unknown';
+        var nameEl = document.getElementById('pod' + n + '-name');
+        if (nameEl) {
+          nameEl.innerHTML = usernameLinkHtml(p.username, 'font-extrabold text-sm hover:text-violet-300 transition-colors');
+        }
 
-        const flagEl = document.getElementById('pod' + n + '-flag');
-        const scoreEl = document.getElementById('pod' + n + '-score');
-        const metaEl = document.getElementById('pod' + n + '-meta');
+        var flagEl = document.getElementById('pod' + n + '-flag');
+        var scoreEl = document.getElementById('pod' + n + '-score');
+        var metaEl = document.getElementById('pod' + n + '-meta');
 
+        // New theme only has pod1-flag/score, pod2/3 just have meta. Be tolerant.
         if (isScore) {
-          flagEl.textContent = FLAGS[p.country] || '🌍';
-          flagEl.title = p.country || '';
-          scoreEl.textContent = formatUP(p.ultra_points);
-          metaEl.textContent = `Lv.${p.level || 1} • ${parseFloat(p.best_accuracy || 0).toFixed(1)}%`;
+          var flag = FLAGS[p.country] || '🌍';
+          var score = formatUP(p.ultra_points);
+          var meta = 'Lv.'+(p.level||1)+' \u2022 '+parseFloat(p.best_accuracy||0).toFixed(1)+'%';
+          if (flagEl) { flagEl.textContent = flag; flagEl.title = p.country||''; }
+          if (scoreEl) scoreEl.textContent = score;
+          if (metaEl) {
+            // if flag/score missing (pod2/3 in new theme), merge them into meta
+            if (!flagEl || !scoreEl) metaEl.textContent = flag+' '+score+' \u2022 '+meta;
+            else metaEl.textContent = meta;
+          }
         } else {
-          const tier = getAchTier(p.achievement_count);
-          flagEl.textContent = '⭐';
-          scoreEl.textContent = (p.achievement_count || 0) + ' Ach';
-          metaEl.textContent = tier.label ? `Lv.${p.level || 1} • ${tier.label}` : `Lv.${p.level || 1}`;
+          var tier = getAchTier(p.achievement_count);
+          var achScore = (p.achievement_count||0)+' Ach';
+          var achMeta = tier.label ? 'Lv.'+(p.level||1)+' \u2022 '+tier.label : 'Lv.'+(p.level||1);
+          if (flagEl) flagEl.textContent = '\u2B50';
+          if (scoreEl) scoreEl.textContent = achScore;
+          if (metaEl) {
+            if (!flagEl || !scoreEl) metaEl.textContent = '\u2B50 '+achScore+' \u2022 '+achMeta;
+            else metaEl.textContent = achMeta;
+          }
         }
       });
     }
@@ -1877,10 +1911,10 @@
           <td class="px-2 sm:px-3 py-[9px] align-middle">${lbRankCell(p._rank)}</td>
           <td class="px-2 sm:px-3 py-[9px]">
             <div class="flex items-center gap-x-3 min-w-0">
-              <div class="w-9 h-9 flex-shrink-0 rounded-2xl overflow-hidden bg-[#27253a] flex items-center justify-center text-sm font-extrabold border border-white/10">${lbAvatarHtml(p)}</div>
+              <a href="${profileHref(p.username)}" class="w-9 h-9 flex-shrink-0 rounded-2xl overflow-hidden bg-[#27253a] flex items-center justify-center text-sm font-extrabold border border-white/10 hover:border-violet-500/40 transition-colors">${lbAvatarHtml(p)}</a>
               <div class="min-w-0">
                 <div class="flex items-center gap-1.5 min-w-0">
-                  <span class="font-medium truncate">${escapeHtml(p.username || 'Unknown')}</span>
+                  ${usernameLinkHtml(p.username)}
                   ${isMe ? '<span class="text-[10px] font-bold text-violet-300 flex-shrink-0">YOU</span>' : ''}
                   ${badge}
                 </div>
@@ -1909,10 +1943,10 @@
           <td class="px-2 sm:px-3 py-[9px] align-middle">${lbRankCell(p._rank)}</td>
           <td class="px-2 sm:px-3 py-[9px]">
             <div class="flex items-center gap-x-3 min-w-0">
-              <div class="w-9 h-9 flex-shrink-0 rounded-2xl overflow-hidden bg-[#27253a] flex items-center justify-center text-sm font-extrabold border border-white/10">${lbAvatarHtml(p)}</div>
+              <a href="${profileHref(p.username)}" class="w-9 h-9 flex-shrink-0 rounded-2xl overflow-hidden bg-[#27253a] flex items-center justify-center text-sm font-extrabold border border-white/10 hover:border-violet-500/40 transition-colors">${lbAvatarHtml(p)}</a>
               <div class="min-w-0">
                 <div class="flex items-center gap-1.5">
-                  <span class="font-medium truncate">${escapeHtml(p.username || 'Unknown')}</span>
+                  ${usernameLinkHtml(p.username)}
                   ${isMe ? '<span class="text-[10px] font-bold text-violet-300">YOU</span>' : ''}
                 </div>
                 <div class="sm:hidden text-[11px] text-slate-400 mt-0.5">Lv.${p.level || 1}${tier.label ? ' · ' + tier.label : ''}</div>
@@ -2009,9 +2043,9 @@
       const filtersOn = lbFiltersActive();
 
       // Podium only makes sense for the unfiltered top 3.
-      const podium = document.getElementById('podium');
+      const podium = document.getElementById('podium') || document.getElementById('lb-podium');
       const showPodium = !filtersOn && data.length > 0;
-      if (podium) podium.style.display = showPodium ? '' : 'none';
+      if (podium) podium.style.display = showPodium ? 'grid' : 'none';
       if (showPodium) renderPodium(data);
 
       const active = document.getElementById('lb-active-filters');
@@ -2073,6 +2107,22 @@
       el.textContent = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
     }
 
+    function updateHomePreview(){
+      var host = document.getElementById('home-lb-preview');
+      if(!host || !allData || !allData.length) return;
+      var top5 = allData.slice(0,5);
+      host.innerHTML = top5.map(function(p, i){
+        var rank = i+1;
+        var flag = (typeof FLAGS!=='undefined' && FLAGS[p.country]) ? FLAGS[p.country] : '🌍';
+        var av = '';
+        try{ av = lbAvatarHtml(p, 32); }catch(e){ var init=(p.username||'?').slice(0,2).toUpperCase(); av='<span style="font-family:\'VCR OSD Mono\',monospace">'+init+'</span>'; }
+        var bg = rank===1 ? 'linear-gradient(135deg,#fbbf24,#b45309)' : (rank===2? 'linear-gradient(135deg,#e2e8f0,#64748b)' : (rank===3? 'linear-gradient(135deg,#fb923c,#9a3412)' : '#1a1d24'));
+        var rankBadge = '<span style="width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-family:\'VCR OSD Mono\',monospace;font-weight:800;font-size:11px;background:'+bg+';color:'+(rank<=3?'#0e0d0e':'#d8d6e2')+';border:1px solid rgba(255,255,255,.08)">'+rank+'</span>';
+        return '<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:#1a1d24;border:1px solid rgba(255,255,255,.06)">'+rankBadge+'<a href="#/u/'+encodeURIComponent(p.username||'')+'" style="width:32px;height:32px;border-radius:8px;overflow:hidden;background:#0e0d0e;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,255,255,.08);text-decoration:none">'+av+'</a><div style="flex:1;min-width:0"><div style="font-family:\'VCR OSD Mono\',monospace;font-size:12px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+'<a href="#/u/'+encodeURIComponent(p.username||'')+'" style="color:#fff;text-decoration:none" onmouseover="this.style.color=\'#c4b5fd\'" onmouseout="this.style.color=\'#fff\'">'+escapeHtml(p.username||'Unknown')+'</a>'+' <span style="color:#9aa0b6;font-size:10px">Lv.'+(p.level||1)+'</span></div><div style="font-size:11px;color:#9aa0b6;font-family:Inter,sans-serif">'+flag+' '+(p.country||'Other')+' • '+parseFloat(p.best_accuracy||0).toFixed(1)+'%</div></div><div style="text-align:right;flex-shrink:0"><div style="font-family:\'VCR OSD Mono\',monospace;font-size:12px;color:#c4b5fd">'+formatUP(p.ultra_points||0)+'</div><div style="font-size:10px;color:#6b7280">'+(p.songs_played||0)+' songs</div></div></div>';
+      }).join('');
+    }
+    window.updateHomePreview = updateHomePreview;
+
     async function fetchLB() {
       try {
         if (!allData.length) showLBLoading();
@@ -2099,6 +2149,7 @@
         if (currentLBTab === 'score') lbRenderAll();
         lbStamp();
         loadMyRank();
+        try{ if(typeof updateHomePreview==='function') updateHomePreview(); }catch(e){}
       } catch (e) {
         console.error('fetchLB error:', e);
         const permission = e.status === 401 || e.status === 403 || /permission denied/i.test(e.body || '');
@@ -2186,7 +2237,7 @@
         <div class="flex items-center gap-3 min-w-0">
           <div class="w-10 h-10 flex-shrink-0 rounded-2xl overflow-hidden bg-[#27253a] flex items-center justify-center text-sm font-extrabold border border-violet-500/40">${lbAvatarHtml(me)}</div>
           <div class="min-w-0">
-            <div class="text-sm font-semibold truncate">${escapeHtml(me.username || 'You')} <span class="text-violet-300 text-xs">(YOU)</span></div>
+            <div class="text-sm font-semibold truncate">${usernameLinkHtml(me.username, 'hover:text-violet-300 hover:underline underline-offset-2 transition-colors')} <span class="text-violet-300 text-xs">(YOU)</span></div>
             <div class="text-xs text-slate-400">${flag} ${escapeHtml(me.country || 'Unknown')} · Lv.${me.level || 1} · ${formatUP(me.ultra_points)} UP</div>
           </div>
         </div>
@@ -2550,6 +2601,10 @@
       SB_URL: SB_URL,
       SB_KEY: SB_KEY,
       FLAGS: FLAGS,
-      getAvatarUrl: getAvatarUrl
+      getAvatarUrl: getAvatarUrl,
+      getBannerUrl: (typeof getBannerUrl!=='undefined'?getBannerUrl:function(id,u){return u;}),
+      profileHref: profileHref,
+      escapeHtml: escapeHtml,
+      formatUP: formatUP
     };
   

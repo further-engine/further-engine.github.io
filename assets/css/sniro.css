@@ -1,0 +1,751 @@
+/* Further Engine — PURE BLACK dark theme (sniro.boo inspired)
+   Keeps Tailwind utilities from app.css, but overrides layout/colors to pure black
+   + VCR font for headings + Further purple accent */
+@font-face{
+  font-family:'VCR OSD Mono';
+  src:url('../fonts/vcr.ttf') format('truetype');
+  font-display:swap;
+  font-weight:400;
+  font-style:normal;
+}
+:root{
+  --background-color:#000000;
+  --background-image:none;
+  --head-profile-color:#000000;
+  --content-profile-color:#0a0a0a;
+  --tab-button-color:#1a1a1a;
+  --text-profile-color:#c4b5fd;
+  --row-profile-color:#111111;
+  --row-profile-color-two:#0a0a0a;
+  --border-color:rgba(255,255,255,.08);
+  --profile-sidebar-width:150px;
+  --content-width:800px;
+  --fe-purple:#8b5cf6;
+  --fe-pink:#ec4899;
+  --fe-amber:#f59e0b;
+}
+/* base */
+*{scrollbar-width:thin; scrollbar-color:#2a2a2a #000000}
+html{
+  background-color:#000000!important;
+  background-image:none!important;
+}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  color:#e8e6f0;
+  background:#000000;
+  overflow-x:hidden;
+}
+.davefont,.vcr{font-family:'VCR OSD Mono', ui-monospace, monospace; letter-spacing:0.5px}
+h1,h2,h3{font-family:'VCR OSD Mono', monospace; letter-spacing:-0.5px}
+a{color:var(--text-profile-color); text-decoration:none}
+a:hover{text-decoration:underline}
+/* === TOP BAR === */
+.Bar{
+  background-color:#000000;
+  font-size:18px;
+  height:50px;
+  opacity:1;
+  overflow:hidden;
+  padding:5px 0 5px 0;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  /* polished animation */
+  transition:height .42s cubic-bezier(.2,.8,.2,1), background-color .3s ease, box-shadow .38s ease, border-color .3s ease, opacity .25s ease;
+  will-change:height, box-shadow;
+  backdrop-filter:saturate(1.1) blur(8px);
+}
+.Bar:hover{
+  height:62px;
+  opacity:1;
+  background-color:#050505;
+  border-color:rgba(139,92,246,.18);
+  box-shadow:0 14px 40px rgba(0,0,0,.85), 0 1px 0 rgba(255,255,255,.06) inset;
+}
+.BarContent{
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  width:min(1700px, 92vw);
+  height:100%;
+  transition:transform .38s cubic-bezier(.2,.7,.2,1);
+}
+.Bar:hover .BarContent{ transform:translateY(1px); }
+.BarLogo{margin-right:auto; display:flex; align-items:center; gap:10px; transition:transform .32s cubic-bezier(.34,1.56,.64,1), filter .25s ease}
+.BarLogo:hover{ transform:scale(1.03); filter:brightness(1.06); }
+.BarLogo img{height:34px; width:34px; object-fit:contain; image-rendering:auto; border-radius:8px; background:#000000; border:1px solid rgba(255,255,255,.08); transition:transform .42s cubic-bezier(.34,1.56,.64,1), box-shadow .32s ease, border-color .25s ease}
+.Bar:hover .BarLogo img{ transform:rotate(-3deg) scale(1.04); box-shadow:0 0 18px rgba(139,92,246,.28); border-color:rgba(139,92,246,.18); }
+.BarLogo-text{font-family:'VCR OSD Mono', monospace; font-size:22px; line-height:1; display:flex; align-items:baseline; gap:6px}
+.BarLogo-text .fe1{color:#fff; text-shadow:0 0 12px rgba(139,92,246,.6)}
+.BarLogo-text .fe2{color:#c4b5fd}
+.BarLogo-badge{font-family:Inter,sans-serif; font-size:10px; font-weight:800; letter-spacing:0.6px; background:#0f0f0f; border:1px solid rgba(255,255,255,.12); color:#a5b4fc; padding:2px 7px; border-radius:999px; margin-left:8px}
+.BarMenuItems{display:flex; margin:auto; align-items:center; gap:2px}
+.BarMenuItems > *{
+  position:relative;
+  align-items:center; display:flex; gap:6px; justify-content:center;
+  margin-left:6px;
+  font-family:'VCR OSD Mono', monospace; font-size:13.5px; letter-spacing:0.3px; color:#d8d6e2;
+  padding:7px 11px; border-radius:10px;
+  border:1px solid transparent;
+  transition:color .22s ease, background .22s ease, transform .28s cubic-bezier(.34,1.56,.64,1), border-color .22s ease, box-shadow .22s ease;
+}
+.BarMenuItems > *::after{
+  content:""; position:absolute; left:50%; bottom:-1px; width:0; height:2px;
+  background:linear-gradient(90deg,#7c3aed,#ec4899);
+  border-radius:999px;
+  transition:width .32s cubic-bezier(.2,.7,.2,1), left .32s cubic-bezier(.2,.7,.2,1), opacity .22s;
+  opacity:0;
+}
+.BarMenuItems > *:hover{
+  color:#fff; background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.07);
+  text-decoration:none; transform:translateY(-1.5px);
+  box-shadow:0 4px 14px rgba(0,0,0,.35);
+}
+.BarMenuItems > *:hover::after{ width:56%; left:22%; opacity:1; }
+.BarMenuItems > *.nav-active{
+  color:#c4b5fd!important; background:rgba(139,92,246,.14); border:1px solid rgba(139,92,246,.22);
+  box-shadow:0 0 0 1px rgba(139,92,246,.08) inset, 0 4px 16px rgba(124,58,237,.18);
+}
+.BarMenuItems > *.nav-active::after{ width:68%; left:16%; opacity:1; background:#7c3aed; }
+.Bar #BarProfile{
+  align-items:center; background:#000000; display:flex; margin-left:auto;
+  max-height:40px; border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,.08);
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1), border-color .22s ease, box-shadow .28s ease, background .22s ease;
+}
+.Bar:hover #BarProfile{ transform:translateY(-1px); border-color:rgba(255,255,255,.12); box-shadow:0 6px 18px rgba(0,0,0,.45); }
+#BarProfile:hover{ border-color:rgba(139,92,246,.22); background:#0a0a0a; transform:translateY(-1px) scale(1.01); }
+.BarProfileText{font-family:Inter,sans-serif; font-size:12px; padding:6px 10px; white-space:pre; display:flex; flex-direction:column; line-height:1.2}
+#TopBarMenu{
+  background-color:#000000;
+  display:flex;
+  flex-direction:column;
+  font-size:18px;
+  gap:4px;
+  line-height:44px;
+  opacity:1;
+  padding:14px;
+  position:fixed;
+  top:50px;
+  right:0;
+  width:280px;
+  z-index:999;
+  border-left:1px solid rgba(255,255,255,.10);
+  border-bottom:1px solid rgba(255,255,255,.10);
+  border-radius:0 0 0 14px;
+  box-shadow:-12px 12px 40px rgba(0,0,0,.9);
+}
+#TopBarMenu>*{gap:8px; min-height:44px; white-space:nowrap; width:100%; display:flex; align-items:center; padding:0 12px; border-radius:8px}
+#TopBarMenu>*:hover{background:rgba(255,255,255,.06)}
+/* === MAIN WRAPPER === */
+.App{color:#fff; justify-content:center; margin:auto; min-height:100vh; padding-top:76px; width:100%; max-width:100vw; overflow-x:hidden; background:#000000}
+.Content{
+  background:#0a0a0a;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:30px;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  margin:0 auto 14px auto;
+  max-width:800px;
+  max-width:var(--content-width);
+  min-width:300px;
+  overflow:hidden;
+  padding:0;
+  box-shadow:0 10px 30px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.04) inset;
+}
+.Content > div{width:100%}
+.Item{color:#fff; overflow:auto; padding:20px 20px 28px; background:#0a0a0a}
+.RoundedContents{border-radius:30px; display:block; max-width:var(--content-width); min-width:200px; overflow:hidden; margin:0 auto 14px auto; background:#0a0a0a; border:1px solid rgba(255,255,255,.08); width:100%; box-shadow:0 8px 24px rgba(0,0,0,.6)}
+.LeaderContainer{
+  animation:leader 5s infinite;
+  background-color:#1a1a1a;
+  border-radius:20px;
+  color:#fff;
+  display:flex;
+  margin-bottom:20px;
+  margin-top:16px;
+  padding:0;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+}
+@keyframes leader{0%{background-color:#7c3aed}50%{background-color:#111111}to{background-color:#7c3aed}}
+.TopContainer{
+  align-items:center;
+  background-color:#0a0a0a;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  color:#fff;
+  display:flex;
+  margin-bottom:10px;
+  margin-top:10px;
+  padding:6px 15px 6px 7px;
+  transition:.15s;
+}
+.TopContainer:hover{scale:1.02}
+table{background:#0a0a0a; width:100%; border-collapse:collapse; border:1px solid rgba(255,255,255,.06)}
+tbody tr:nth-child(odd){background:#111111}
+tbody tr:nth-child(even){background:#0a0a0a}
+td{white-space:nowrap; padding:8px 10px; font-size:13px; border-bottom:1px solid rgba(255,255,255,.04)}
+td>*{overflow:hidden; text-overflow:ellipsis}
+.Downloads{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; line-height:1.2; padding:10px 0}
+.Downloads a{background-color:#0a0a0a; border-radius:14px; color:#f0f8ff; padding:16px; transition:.2s; min-width:150px; flex:1 1 150px; max-width:200px; text-align:center; border:1px solid rgba(255,255,255,.09); display:flex; flex-direction:column; align-items:center; gap:8px}
+.Downloads a:hover{scale:1.04; border-color:rgba(139,92,246,.45); text-decoration:none; background:#111111}
+.Downloads .dl-label{font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff}
+.Downloads .dl-meta{font-size:11px; color:#9aa0b6}
+.Coolbox{align-items:center; background-color:#000000; border-radius:20px; color:#fff; display:flex; flex-direction:column; justify-content:center; margin:5px; max-width:fit-content; padding:10px; transition:.1s; border:1px solid rgba(255,255,255,.08)}
+.Coolbox:hover{scale:1.06; border-color:rgba(139,92,246,.35); background:#0a0a0a}
+.SeamlessInput,a,p,span,summary{font-family:'VCR OSD Mono', monospace; overflow-wrap:anywhere}
+p{font-family:Inter,sans-serif; font-size:14px; line-height:1.6}
+h2,h3{overflow:hidden; text-align:center; font-family:'VCR OSD Mono', monospace}
+h2:after,h2:before{height:3px}
+h3:after,h3:before{background-color:#1a1a1a; content:""; display:inline-block; height:2px; position:relative; vertical-align:middle; width:30%}
+h3:before{margin-left:-30%; right:.5em}
+h3:after{left:.5em; margin-right:-30%}
+.PixelImg{image-rendering:pixelated; image-rendering:-moz-crisp-edges; image-rendering:crisp-edges}
+.hero-logo{width:84px; height:84px; image-rendering:auto; filter:drop-shadow(0 8px 24px rgba(139,92,246,.4))}
+.title-gradient-fe{font-family:'VCR OSD Mono', monospace; font-size:42px; line-height:0.9; letter-spacing:-1px; color:#fff; text-shadow:0 2px 0 #000, 0 0 18px rgba(139,92,246,.45)}
+@media(min-width:640px){.title-gradient-fe{font-size:54px}}
+.stats-row{display:flex; justify-content:center; gap:28px; text-align:center; margin-top:18px}
+.stat-number-fe{font-family:'VCR OSD Mono', monospace; font-size:28px; color:#fff; line-height:1}
+.stat-label-fe{font-size:10px; letter-spacing:1px; color:#9aa0b6; font-weight:700; margin-top:4px}
+/* Buttons */
+.FunkinButton{
+  background:#0f0f0f;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:10px;
+  color:#fff;
+  transition:.2s ease-out;
+  cursor:pointer;
+  padding:9px 16px;
+  font-family:'VCR OSD Mono', monospace;
+  font-size:13px;
+}
+.FunkinButton:hover{background:#1a1a1a; border-color:rgba(139,92,246,.45); text-decoration:none; transform:translateY(-1px)}
+.FunkinButton.white{background:#fff; color:#000; border-color:#fff; font-weight:800}
+.FunkinButton.white:hover{background:#e5e5e5}
+.TabButton{background-color:#0f0f0f; border-radius:10px; color:#fff; height:30px; min-width:30px; overflow:hidden; padding:5px 10px; width:fit-content; font-family:'VCR OSD Mono', monospace; font-size:12px; border:1px solid rgba(255,255,255,.09)}
+.TabButton:hover{background:#1a1a1a}
+.TabButton.active{background:#7c3aed; border-color:rgba(255,255,255,.15); color:#fff}
+.CenteredFlex{align-items:center; display:flex; flex-direction:column; flex-wrap:wrap; flex-flow:wrap; justify-content:center}
+.page{display:none}
+.page.active{display:block; animation:pageIn .25s ease}
+@keyframes pageIn{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+#site-status-bar.hidden{display:none!important}
+#site-status-bar{background:#f59e0b; color:#000; padding:8px 14px; text-align:center; font-family:'VCR OSD Mono', monospace; font-size:13px; border-bottom:2px solid #000}
+.glass{background:rgba(0,0,0,.92); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.09)}
+.clean-input{background:#0f0f0f!important; border:1px solid rgba(255,255,255,.12)!important; color:#fff!important; font-family:Inter,sans-serif!important}
+.clean-input:focus{outline:none; box-shadow:0 0 0 3px rgba(139,92,246,.18); border-color:#7c3aed!important}
+.hero-stage-fe{position:relative; margin:18px 14px 0 14px; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#000000}
+.hero-stage-fe img{display:block; width:100%; height:auto; image-rendering:auto}
+.hero-chrome-fe{display:flex; align-items:center; gap:6px; padding:7px 10px; background:#0a0a0a; border-bottom:1px solid rgba(255,255,255,.06); font-family:'VCR OSD Mono', monospace; font-size:11px; color:#9aa0b6}
+.podium-fe{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:14px 0}
+.podium-card-fe{background:#0a0a0a; border:1px solid rgba(139,92,246,.18); border-radius:16px; padding:14px; text-align:center}
+.podium-card-fe.gold{border-color:rgba(251,191,36,.30); background:linear-gradient(180deg, rgba(251,191,36,.10), #0a0a0a)}
+.podium-card-fe.silver{border-color:rgba(226,232,240,.15)}
+.podium-card-fe.bronze{border-color:rgba(251,146,60,.22)}
+.rank-badge-fe{width:34px; height:34px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; font-family:'VCR OSD Mono', monospace; font-weight:800; font-size:14px; margin-bottom:6px}
+.rank-1-fe{background:linear-gradient(135deg,#fbbf24,#b45309); color:#000}
+.rank-2-fe{background:linear-gradient(135deg,#e2e8f0,#64748b); color:#000}
+.rank-3-fe{background:linear-gradient(135deg,#fb923c,#9a3412); color:#fff}
+.modpack-grid{display:grid; grid-template-columns:1fr; gap:12px}
+@media(min-width:640px){.modpack-grid{grid-template-columns:1fr 1fr}}
+.modpack-card{background:#0a0a0a; border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; transition:.18s}
+.modpack-card:hover{transform:translateY(-3px); border-color:rgba(139,92,246,.35); box-shadow:0 12px 28px rgba(0,0,0,.9)}
+.modpack-thumb{height:128px; background:#000000; display:flex; align-items:center; justify-content:center; overflow:hidden; border-bottom:1px solid rgba(255,255,255,.06)}
+.modpack-thumb img{width:100%; height:100%; object-fit:cover}
+.modpack-body{padding:14px; background:#0a0a0a}
+.modpack-title{font-family:'VCR OSD Mono', monospace; font-size:15px; color:#fff; margin:0 0 4px 0}
+.modpack-meta{font-size:11px; color:#9aa0b6; display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px}
+.modpack-desc{font-size:13px; color:#c8c6d4; line-height:1.5; font-family:Inter,sans-serif}
+.modpack-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+.tag-fe{font-size:10px; padding:3px 8px; border-radius:999px; background:rgba(139,92,246,.12); border:1px solid rgba(139,92,246,.20); color:#c4b5fd; font-family:'VCR OSD Mono', monospace}
+.modpack-actions{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
+.modpack-actions a{font-size:12px; padding:7px 10px; border-radius:8px; font-family:'VCR OSD Mono', monospace; border:1px solid rgba(255,255,255,.10); background:#111111; color:#fff; flex:1; text-align:center}
+.modpack-actions a.primary{background:#7c3aed; border-color:#7c3aed; color:#fff}
+.modpack-actions a:hover{text-decoration:none; filter:brightness(1.08)}
+.tier-badge{font-family:'VCR OSD Mono', monospace; font-size:10px; font-weight:800; letter-spacing:.5px; padding:4px 8px; border-radius:999px; color:#fff; display:inline-flex; align-items:center; gap:6px}
+.includes-list{display:flex; flex-wrap:wrap; gap:5px; margin-top:8px}
+.includes-pill{font-size:10px; background:#000000; border:1px solid rgba(255,255,255,.08); color:#d8d6e2; padding:3px 7px; border-radius:999px; font-family:Inter,sans-serif}
+.filter-bar{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:12px 0}
+.skeleton{background:linear-gradient(90deg,#0a0a0a 25%,#141414 37%,#0a0a0a 63%); background-size:400% 100%; animation:skeleton 1.4s ease infinite}
+@keyframes skeleton{0%{background-position:100% 50%}to{background-position:0 50%}}
+#toast-host{position:fixed; bottom:18px; right:18px; z-index:999; display:flex; flex-direction:column; gap:8px; pointer-events:none}
+.text-violet-200{color:#ddd6fe!important}
+.text-violet-300{color:#c4b5fd!important}
+.bg-violet-500\/20{background:rgba(139,92,246,.2)!important}
+.border-violet-400\/25{border-color:rgba(139,92,246,.25)!important}
+input,select,textarea{font-family:Inter,sans-serif}
+.Content::-webkit-scrollbar, .Item::-webkit-scrollbar{width:8px; height:8px}
+.Content::-webkit-scrollbar-thumb, .Item::-webkit-scrollbar-thumb{background:#222; border-radius:8px}
+/* overrides for any leftover inline greys — force dark */
+[style*="background:#282c34"],[style*="background: #282c34"]{background:#0a0a0a!important}
+[style*="background:#1a1d24"]{background:#0f0f0f!important}
+[style*="background:#121418"]{background:#080808!important}
+[style*="background:#1e1e2e"]{background:#0a0a0a!important}
+[style*="background:#1a1625"]{background:#0a0a0a!important}
+[style*="border:1px solid rgba(255,255,255,.06)"]{border-color:rgba(255,255,255,.08)!important}
+@media(max-width:640px){
+  .Bar{height:50px!important}
+  .BarMenuItems{font-size:12px}
+  .BarMenuItems > *{margin-left:4px; padding:5px 7px}
+  .App{padding-top:68px}
+  .title-gradient-fe{font-size:32px}
+  .Content,.RoundedContents{border-radius:20px; margin-left:8px; margin-right:8px; max-width:calc(100vw - 16px)}
+  .Item{padding:16px}
+}
+
+/* === OVERRIDES for Tailwind arbitrary gray backgrounds → pure black === */
+.bg-\[\#27253a\]{background-color:#0a0a0a!important}
+.bg-\[\#161622\]{background-color:#0f0f0f!important}
+.bg-\[\#12121c\]{background-color:#080808!important}
+.bg-\[\#0a0a12\]{background-color:#000000!important}
+.bg-\[\#1e1b4b\]{background-color:#111111!important}
+.bg-\[\#282c34\]{background-color:#0a0a0a!important}
+.bg-\[\#1a1d24\]{background-color:#0f0f0f!important}
+.bg-\[\#121418\]{background-color:#080808!important}
+.hover\:bg-\[\#161622\]:hover{background-color:#111111!important}
+.hover\:bg-white\/\[0\.02\]:hover{background-color:rgba(255,255,255,.03)!important}
+/* border overrides */
+.border-\[\#27253a\]{border-color:#222!important}
+.bg-white\/5{background-color:rgba(255,255,255,.04)!important}
+.bg-white\/\[0\.04\]{background-color:rgba(255,255,255,.04)!important}
+/* force dark containers that use Tailwind bg-[#...] */
+
+/* ===========================================================
+   FEEL — intentional loading + micro-animations
+   =========================================================== */
+/* Button base will-change */
+.FunkinButton, .TabButton, .modpack-actions a, .further-tool-btn, .Downloads a{
+  will-change: transform, box-shadow, border-color;
+  position:relative;
+  overflow:hidden;
+}
+/* hover lift */
+.FunkinButton:hover, .TabButton:hover, .modpack-actions a:hover, .further-tool-btn:hover{
+  transform:translateY(-1.5px);
+  box-shadow:0 6px 18px rgba(0,0,0,.5);
+}
+/* active press */
+.FunkinButton:active, .TabButton:active, .modpack-actions a:active, .further-tool-btn:active{
+  transform:scale(0.97) translateY(0);
+  transition-duration:.08s;
+}
+/* ripple shimmer on hover */
+.FunkinButton::after, .further-tool-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg, transparent 20%, rgba(255,255,255,.08) 35%, transparent 55%);
+  transform:translateX(-100%);
+  transition:transform .6s ease;
+  pointer-events:none;
+}
+.FunkinButton:hover::after, .further-tool-btn:hover::after{ transform:translateX(100%); }
+/* loading state — button */
+.is-loading{
+  opacity:.78!important;
+  pointer-events:none!important;
+  filter:saturate(.8);
+}
+.is-loading .fa-spinner{ margin-right:6px; }
+.FunkinButton.is-loading, .further-tool-btn.is-loading, .modpack-actions a.is-loading{
+  background:#111111!important;
+  border-color:rgba(139,92,246,.35)!important;
+  color:#c4b5fd!important;
+}
+/* global top loading bar */
+#ux-loading-bar{
+  position:fixed; top:0; left:0; height:2px; width:0%;
+  background:linear-gradient(90deg,#7c3aed,#ec4899,#7c3aed);
+  background-size:200% 100%;
+  z-index:9999;
+  opacity:0;
+  transition:width .4s ease, opacity .2s;
+  animation:uxBarShift 1.2s linear infinite;
+  pointer-events:none;
+}
+#ux-loading-bar.on{ opacity:1; }
+@keyframes uxBarShift{ 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+
+/* card entrance */
+.modpack-card, .Content, .RoundedContents, .Coolbox, .podium-card-fe, .Downloads a{
+  animation:uxCardIn .45s cubic-bezier(.2,.7,.2,1) both;
+}
+.modpack-card:nth-child(2){animation-delay:.06s}
+.modpack-card:nth-child(3){animation-delay:.12s}
+.modpack-card:nth-child(4){animation-delay:.18s}
+@keyframes uxCardIn{ from{opacity:0; transform:translateY(10px) scale(.98)} to{opacity:1; transform:none} }
+
+/* page transition — intentional holding */
+.page{ transition:opacity .22s ease, transform .22s ease; }
+.page.is-switching{ opacity:0; transform:translateY(6px) scale(.99); pointer-events:none; }
+.page.active{ opacity:1; transform:none; }
+
+/* skeleton pulse already exists — make it feel intentional */
+.skeleton{
+  position:relative; overflow:hidden;
+}
+.skeleton::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent);
+  transform:translateX(-100%);
+  animation:uxSkeletonShimmer 1.1s ease infinite;
+}
+@keyframes uxSkeletonShimmer{ 100%{ transform:translateX(100%); } }
+
+/* further tool button — monochrome */
+.further-tool-btn{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%;
+  padding:10px 14px;
+  border-radius:12px;
+  background:#ffffff;
+  color:#000000;
+  border:1px solid #ffffff;
+  font-family:'VCR OSD Mono', monospace;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.3px;
+  text-decoration:none!important;
+  transition:.2s;
+  box-shadow:0 4px 14px rgba(0,0,0,.4);
+}
+.further-tool-btn:hover{ background:#f5f5f5; border-color:#fff; color:#000; transform:translateY(-1.5px); box-shadow:0 8px 22px rgba(0,0,0,.6); }
+.further-tool-btn img{ width:18px; height:18px; object-fit:contain; border-radius:4px; flex-shrink:0; filter:contrast(1.1); }
+.further-tool-btn small{ font-weight:400; opacity:.7; font-size:10px; font-family:Inter,sans-serif; }
+.further-tool-wrap{ margin-top:10px; }
+
+/* toast / bar profile bump */
+@keyframes uxBump{ 0%{transform:scale(1)} 30%{transform:scale(1.03)} 60%{transform:scale(.98)} 100%{transform:scale(1)} }
+.ux-bump{ animation:uxBump .45s cubic-bezier(.34,1.56,.64,1); }
+
+/* intentional hover delay hint — subtle */
+.BarMenuItems > *{ transition:background .18s ease, color .18s ease, transform .18s cubic-bezier(.34,1.56,.64,1); }
+
+/* ===========================================================
+   POLISH — topbar + most elements smooth animations
+   =========================================================== */
+/* Content / RoundedContents subtle entrance & hover */
+.Content, .RoundedContents{
+  transition:transform .42s cubic-bezier(.2,.7,.2,1), box-shadow .38s ease, border-color .3s ease, background .25s ease;
+  will-change:transform, box-shadow;
+}
+.Content:hover, .RoundedContents:hover{
+  transform:translateY(-1px);
+  border-color:rgba(255,255,255,.11);
+  box-shadow:0 14px 36px rgba(0,0,0,.85), 0 0 0 1px rgba(255,255,255,.05) inset;
+}
+/* inner Item fade */
+.Item{
+  transition:background .25s ease;
+}
+.Content:hover .Item, .RoundedContents:hover .Item{
+  background:#0a0a0a;
+}
+
+/* Buttons — already have .FunkinButton but add bounce easing */
+.FunkinButton, .TabButton{
+  transition:transform .26s cubic-bezier(.34,1.56,.64,1), background .22s ease, border-color .22s ease, color .22s ease, box-shadow .26s ease, opacity .2s;
+  will-change:transform;
+}
+.FunkinButton:hover, .TabButton:hover{
+  transform:translateY(-1.5px) scale(1.01);
+  box-shadow:0 8px 20px rgba(0,0,0,.5);
+}
+.FunkinButton:active, .TabButton:active{
+  transform:scale(.97) translateY(0px);
+  transition-duration:.09s;
+  box-shadow:0 2px 8px rgba(0,0,0,.4);
+}
+
+/* Downloads cards */
+.Downloads a{
+  transition:transform .34s cubic-bezier(.34,1.56,.64,1), border-color .28s ease, background .28s ease, box-shadow .32s ease, filter .22s ease;
+  will-change:transform;
+}
+.Downloads a:hover{
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 12px 28px rgba(0,0,0,.65), 0 0 0 1px rgba(139,92,246,.10) inset;
+}
+.Downloads a:active{
+  transform:scale(.98) translateY(0);
+}
+
+/* Modpack cards */
+.modpack-card{
+  transition:transform .38s cubic-bezier(.34,1.56,.64,1), border-color .3s ease, box-shadow .34s ease, background .25s ease;
+  will-change:transform;
+}
+.modpack-card:hover{
+  transform:translateY(-4px) scale(1.01);
+  box-shadow:0 16px 36px rgba(0,0,0,.85), 0 0 24px rgba(124,58,237,.08);
+  border-color:rgba(139,92,246,.28);
+}
+.modpack-card:active{ transform:scale(.985) translateY(-1px); transition-duration:.12s; }
+
+/* Coolbox */
+.Coolbox{
+  transition:transform .34s cubic-bezier(.34,1.56,.64,1), border-color .26s ease, background .26s ease, box-shadow .3s ease;
+}
+.Coolbox:hover{
+  transform:translateY(-3px) scale(1.03) rotate(0.3deg);
+  box-shadow:0 12px 26px rgba(0,0,0,.6);
+}
+
+/* Podium */
+.podium-card-fe{
+  transition:transform .38s cubic-bezier(.34,1.56,.64,1), border-color .28s ease, box-shadow .32s ease;
+}
+.podium-card-fe:hover{
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 12px 28px rgba(0,0,0,.7);
+}
+
+/* Table rows */
+tbody tr{
+  transition:background .22s ease, transform .22s ease;
+}
+tbody tr:hover{
+  transform:scale(1.005);
+  background:#141414!important;
+  box-shadow:0 0 0 1px rgba(139,92,246,.12) inset;
+}
+
+/* Hero stage */
+.hero-stage-fe{
+  transition:transform .45s cubic-bezier(.2,.7,.2,1), border-color .3s ease, box-shadow .4s ease;
+}
+.hero-stage-fe:hover{
+  transform:translateY(-2px);
+  border-color:rgba(139,92,246,.18);
+  box-shadow:0 18px 48px rgba(0,0,0,.75), 0 0 0 1px rgba(139,92,246,.08) inset;
+}
+.hero-stage-fe img{
+  transition:transform .6s cubic-bezier(.2,.7,.2,1), filter .35s ease;
+}
+.hero-stage-fe:hover img{ transform:scale(1.015); filter:brightness(1.04); }
+
+/* Topbar mobile button */
+#mobile-nav-toggle{
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1), background .2s ease, border-color .2s ease;
+}
+#mobile-nav-toggle:hover{ transform:scale(1.06) rotate(2deg); }
+#mobile-nav-toggle:active{ transform:scale(.93) rotate(0deg); }
+
+/* Mobile nav drawer */
+#mobile-nav{
+  transition:transform .38s cubic-bezier(.2,.7,.2,1), opacity .3s ease;
+  transform:translateX(100%);
+  opacity:0;
+}
+#mobile-nav.flex{
+  transform:translateX(0);
+  opacity:1;
+}
+#mobile-nav.hidden{
+  transform:translateX(100%);
+  opacity:0;
+  pointer-events:none;
+}
+#mobile-nav a{
+  transition:background .2s ease, transform .22s cubic-bezier(.34,1.56,.64,1), padding-left .22s ease;
+}
+#mobile-nav a:hover{
+  background:rgba(255,255,255,.06);
+  transform:translateX(4px);
+  padding-left:14px;
+}
+
+/* User menu */
+#user-menu{
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1), opacity .22s ease, box-shadow .28s ease;
+  transform-origin:top right;
+}
+#user-menu.hidden{
+  transform:scale(.96) translateY(-6px);
+  opacity:0;
+  pointer-events:none;
+}
+#user-menu:not(.hidden){
+  transform:scale(1) translateY(0);
+  opacity:1;
+  animation:uxCardIn .32s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* Modals */
+#modal-overlay, #profile-modal-overlay{
+  transition:opacity .28s ease, backdrop-filter .28s ease;
+  opacity:0;
+  pointer-events:none;
+}
+#modal-overlay:not(.hidden), #profile-modal-overlay:not(.hidden){
+  opacity:1;
+  pointer-events:all;
+}
+#modal-overlay > div, #profile-modal-overlay > div{
+  transition:transform .36s cubic-bezier(.34,1.56,.64,1), opacity .28s ease;
+  transform:scale(.94) translateY(8px);
+  opacity:0;
+}
+#modal-overlay:not(.hidden) > div, #profile-modal-overlay:not(.hidden) > div{
+  transform:scale(1) translateY(0);
+  opacity:1;
+}
+
+/* Inputs focus */
+.clean-input{
+  transition:border-color .22s ease, box-shadow .22s ease, transform .18s ease, background .22s ease;
+}
+.clean-input:hover{ border-color:rgba(255,255,255,.16)!important; transform:translateY(-1px); }
+.clean-input:focus{ transform:translateY(-1px); }
+
+/* Tabs */
+.TabButton{
+  transition:background .22s ease, color .22s ease, border-color .22s ease, transform .24s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease;
+}
+.TabButton:hover{ transform:translateY(-1px) scale(1.02); }
+.TabButton.active{
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(124,58,237,.25);
+}
+
+/* Status bar slide */
+#site-status-bar{
+  transition:transform .38s cubic-bezier(.34,1.56,.64,1), opacity .3s ease, max-height .38s ease;
+  transform-origin:top;
+}
+#site-status-bar.hidden{
+  transform:scaleY(.8) translateY(-8px);
+  opacity:0;
+  max-height:0;
+  padding:0!important;
+  border:none!important;
+  overflow:hidden;
+}
+#site-status-bar:not(.hidden){
+  animation:uxStatusIn .42s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes uxStatusIn{ from{ transform:translateY(-10px) scale(.98); opacity:0; } to{ transform:none; opacity:1; } }
+
+/* Page transitions — already have pageIn but make smoother */
+.page{
+  transition:opacity .32s cubic-bezier(.2,.7,.2,1), transform .38s cubic-bezier(.2,.7,.2,1), filter .3s ease;
+  will-change:opacity, transform;
+}
+.page.active{ animation:uxPageIn .48s cubic-bezier(.2,.7,.2,1) both; }
+.page.is-switching{
+  opacity:0;
+  transform:translateY(8px) scale(.985);
+  filter:blur(2px);
+  pointer-events:none;
+}
+@keyframes uxPageIn{
+  from{ opacity:0; transform:translateY(12px) scale(.985); filter:blur(4px); }
+  60%{ opacity:1; filter:blur(0); }
+  to{ opacity:1; transform:none; filter:none; }
+}
+
+/* Further Tool button pulse */
+.further-tool-btn{
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s ease, background .22s ease, border-color .22s ease;
+  will-change:transform;
+}
+.further-tool-btn:hover{ transform:translateY(-2px) scale(1.01); box-shadow:0 10px 26px rgba(0,0,0,.6); }
+.further-tool-btn:active{ transform:scale(.97); }
+
+/* Tier badges hover */
+.tier-badge{ transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease; }
+.tier-badge:hover{ transform:scale(1.05) translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,.3); }
+
+/* FAQ smooth */
+.faq-item{
+  transition:transform .22s ease, border-color .22s ease, background .22s ease;
+}
+.faq-item:hover{ transform:translateY(-1px); border-color:rgba(255,255,255,.10); background:#0f0f0f; }
+.faq-item summary{
+  transition:color .2s ease;
+}
+.faq-item summary:hover{ color:#c4b5fd; }
+.faq-item summary i{ transition:transform .32s cubic-bezier(.34,1.56,.64,1); }
+
+/* Leaderboard podium hover already done, add shimmer to gold */
+.podium-card-fe.gold:hover{ box-shadow:0 16px 32px rgba(251,191,36,.18), 0 0 0 1px rgba(251,191,36,.18) inset; }
+
+/* Global smooth scrolling already, but add scroll-behavior */
+html{ scroll-behavior:smooth; }
+
+/* Reduce motion respect */
+@media (prefers-reduced-motion: reduce){
+  .Bar, .BarContent, .BarLogo, .BarLogo img, .BarMenuItems > *, .Content, .RoundedContents, .FunkinButton, .TabButton, .Downloads a, .modpack-card, .Coolbox, .podium-card-fe, tbody tr, .hero-stage-fe, #mobile-nav, #user-menu, #modal-overlay, #profile-modal-overlay, .clean-input, .further-tool-btn, .faq-item, .page{
+    transition:none!important;
+    animation:none!important;
+    transform:none!important;
+  }
+}
+
+/* Override hidden display for animated elements to allow transitions */
+#mobile-nav.hidden{
+  display:flex!important;
+}
+#mobile-nav.flex{
+  display:flex!important;
+}
+#user-menu.hidden{
+  display:block!important;
+}
+#modal-overlay.hidden, #profile-modal-overlay.hidden{
+  display:flex!important;
+  opacity:0;
+  pointer-events:none;
+}
+#modal-overlay:not(.hidden), #profile-modal-overlay:not(.hidden){
+  display:flex!important;
+  opacity:1;
+  pointer-events:all;
+}
+/* keep pointer-events correct for hidden */
+#user-menu.hidden{ pointer-events:none; }
+#user-menu:not(.hidden){ pointer-events:all; }
+
+/* Improve focus ring transition */
+*:focus-visible{ transition:outline-offset .16s ease, outline-color .16s ease; }
+
+/* Subtle page load fade for whole App */
+.App{ animation:uxAppIn .6s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes uxAppIn{ from{ opacity:0; } to{ opacity:1; } }
+
+/* Make all interactive elements have cursor pointer with smooth */
+button, a, select, [onclick], [role="button"]{ cursor:pointer; }
+
+/* Add gentle pulse to version badge */
+.BarLogo-badge{
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease, background .22s ease;
+}
+.BarLogo-badge:hover{ transform:scale(1.05) translateY(-1px); box-shadow:0 4px 12px rgba(139,92,246,.2); }
+
+/* Tier badge shimmer on hover already, add to other badges */
+
+/* ===== PROFILE PAGE — 2026-09-20 ===== */
+#page-profile .Item{transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease}
+#page-profile #profile-banner{transition:filter .4s ease}
+#page-profile #profile-avatar{transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease}
+#page-profile #profile-avatar:hover{transform:scale(1.03) rotate(-1deg); box-shadow:0 10px 28px rgba(0,0,0,.55)}
+#profile-content{animation:uxPageIn .48s cubic-bezier(.22,1,.36,1) both}
+@keyframes uxPageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){
+  #profile-banner{height:160px!important}
+  #profile-avatar{width:78px!important;height:78px!important;border-radius:18px!important;font-size:22px!important}
+  #page-profile div[style*="grid-template-columns:repeat(4"]{grid-template-columns:repeat(2,1fr)!important}
+  #page-profile h2#profile-username{font-size:18px!important}
+}
+#profile-up,#profile-acc,#profile-songs,#profile-level,#profile-ach,#profile-rank-big{transition:transform .25s ease}
+#profile-up:hover,#profile-acc:hover,#profile-songs:hover,#profile-level:hover{transform:translateY(-1px)}

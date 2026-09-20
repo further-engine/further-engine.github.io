@@ -17,11 +17,14 @@
   'use strict';
 
   var ROUTES = {
-    home:    { hash: '',            title: 'Further Engine — Built for All | Free FNF Engine',                    desc: 'Further Engine is a free, open-source Psych Engine fork for Friday Night Funkin\u2019 with global leaderboards, cloud saves and native Android, Windows, Linux, macOS and iOS builds.' },
-    online:  { hash: 'leaderboard', title: 'Global Leaderboard — Further Engine',                                 desc: 'Live global leaderboard for Further Engine: top scores, achievements, and player rankings from every platform.' },
-    faq:     { hash: 'faq',         title: 'FAQ — Further Engine',                                                desc: 'Answers to the most common Further Engine questions: installation, mod support, accounts, cloud saves and platform availability.' },
-    credits: { hash: 'credits',     title: 'Credits — Further Engine',                                            desc: 'The people and projects behind Further Engine, the community-built Psych Engine fork.' },
-    admin:   { hash: 'admin',       title: 'Moderation — Further Engine',                                         desc: 'Staff-only moderation tools.', noindex: true }
+    home:     { hash: '',            title: 'Further Engine — Built for All | Free FNF Engine',                    desc: 'Further Engine is a free, open-source Psych Engine fork for Friday Night Funkin\u2019 with global leaderboards, cloud saves and native Android, Windows, Linux, macOS and iOS builds.' },
+    download: { hash: 'download',    title: 'Download — Further Engine',                                           desc: 'Download Further Engine for Android, Windows, Linux, macOS and iOS — free, open-source, Apache 2.0.' },
+    modpacks: { hash: 'modpacks',    title: 'Modpacks — Further Engine',                                           desc: 'Official Further Engine modpacks: Lite, Medium and Further — curated collections installable in-game.' },
+    online:   { hash: 'leaderboard', title: 'Global Leaderboard — Further Engine',                                 desc: 'Live global leaderboard for Further Engine: top scores, achievements, and player rankings from every platform.' },
+    faq:      { hash: 'faq',         title: 'FAQ — Further Engine',                                                desc: 'Answers to the most common Further Engine questions: installation, mod support, accounts, cloud saves and platform availability.' },
+    credits:  { hash: 'credits',     title: 'Credits — Further Engine',                                            desc: 'The people and projects behind Further Engine, the community-built Psych Engine fork.' },
+    profile:  { hash: 'u',           title: 'Player Profile — Further Engine',                                     desc: 'View player profile, stats, level, Ultra Points and achievements on Further Engine.' },
+    admin:    { hash: 'admin',       title: 'Moderation — Further Engine',                                         desc: 'Staff-only moderation tools.', noindex: true }
   };
 
   var HASH_TO_PAGE = {};
@@ -77,11 +80,20 @@
   }
 
   function pageFromHash() {
-    // Filters live in a query string after the route (#/leaderboard?country=Turkey).
-    var raw = (window.location.hash || '').split('?')[0]
-      .replace(/^#\/?/, '').replace(/\/$/, '').toLowerCase();
-    if (raw === 'download' || raw === 'downloads') return { id: 'home', scrollTo: 'downloads' };
-    return { id: HASH_TO_PAGE[raw] || 'home', scrollTo: null };
+    var rawFull = (window.location.hash || '').split('?')[0].replace(/^#\/?/, '').replace(/\/$/, '');
+    var raw = rawFull.toLowerCase();
+    if (raw === 'downloads') raw = 'download';
+    // profile: #/u/username  #/user/xxx  #/profile/xxx
+    if (raw.indexOf('u/')===0 || raw.indexOf('user/')===0 || raw.indexOf('profile/')===0) {
+      var parts = rawFull.split('/');
+      var name = decodeURIComponent(parts.slice(1).join('/').trim());
+      if (name) return { id: 'profile', param: name, scrollTo: null };
+    }
+    if (raw.indexOf('u/')===0) { /* empty */ }
+    if (HASH_TO_PAGE[raw]) return { id: HASH_TO_PAGE[raw], scrollTo: null };
+    // also handle #/u without name -> home
+    if (raw==='u' || raw==='user' || raw==='profile') return { id: 'home', scrollTo: null };
+    return { id: 'home', scrollTo: null };
   }
 
   function install() {
@@ -90,16 +102,41 @@
     var base = window.showPage;
 
     window.showPage = function (id, el, opts) {
+      // profile param handling: opts && opts.param  or el is string name
+      var profileParam = null;
+      if (id === 'profile') {
+        if (opts && opts.param) profileParam = opts.param;
+        else if (typeof el === 'string' && el) profileParam = el;
+        else if (window._profileRequested) profileParam = window._profileRequested;
+      }
+      if (profileParam) window._profileRequested = profileParam;
       if (!ROUTES[id]) id = 'home';
-      base(id, el);
+      base(id, (typeof el === 'string' ? null : el));
       highlight(id);
-      setMeta(id);
+      // for profile, set dynamic title if we have param
+      if (id === 'profile' && profileParam) {
+        var tEl = document.querySelector('title');
+        if (tEl) tEl.textContent = profileParam + ' — Player Profile — Further Engine';
+      } else {
+        setMeta(id);
+      }
       if (id === 'admin' && typeof window.adminOpen === 'function') window.adminOpen();
+      if (id === 'profile' && typeof window.loadProfilePage === 'function') {
+        // delay slightly to let page become active
+        setTimeout(function(){ window.loadProfilePage(profileParam); }, 40);
+      }
 
       if (!opts || opts.updateHash !== false) {
-        var want = ROUTES[id].hash ? '#/' + ROUTES[id].hash : '';
+        var want = '';
+        if (id === 'profile' && profileParam) {
+          want = '#/u/' + encodeURIComponent(profileParam);
+        } else {
+          want = ROUTES[id].hash ? '#/' + ROUTES[id].hash : '';
+        }
         var current = (window.location.hash || '').split('?')[0];
-        if (current !== want && !(want === '' && current === '')) {
+        // for profile, compare without case
+        var same = current.toLowerCase() === want.toLowerCase();
+        if (!same && !(want === '' && current === '')) {
           suppress = true;
           if (want) window.location.hash = want;
           else history.pushState('', document.title, window.location.pathname + window.location.search);
@@ -112,7 +149,8 @@
     window.addEventListener('hashchange', function () {
       if (suppress) { suppress = false; return; }
       var r = pageFromHash();
-      window.showPage(r.id, null, { updateHash: false });
+      if (r.id === 'profile' && r.param) window._profileRequested = r.param;
+      window.showPage(r.id, r.param || null, { updateHash: false });
       if (r.scrollTo) {
         var target = document.getElementById(r.scrollTo);
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -121,7 +159,8 @@
 
     // Cold start / shared link
     var initial = pageFromHash();
-    window.showPage(initial.id, null, { updateHash: false });
+    if (initial.param) window._profileRequested = initial.param;
+    window.showPage(initial.id, initial.param || null, { updateHash: false });
     if (initial.scrollTo) {
       setTimeout(function () {
         var target = document.getElementById(initial.scrollTo);

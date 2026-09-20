@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=0.95, maximum-scale=1, user-scalable=yes">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0e0d0e">
 <title>Further Engine — Built for All | Free FNF Engine</title>
 <meta name="description" content="Further Engine is a free, open-source Psych Engine fork for Friday Night Funkin' with global leaderboards, cloud saves and native Android, Windows, Linux, macOS and iOS builds.">
 <meta name="keywords" content="Further Engine, Psych Engine fork, FNF engine, Friday Night Funkin mod engine, FNF Android, FNF leaderboard, Psych Engine Türkiye">
@@ -72,7 +72,7 @@
 </div>
 
 <!-- MOBILE NAV (hidden overlay, JS toggles) -->
-<div id="mobile-nav" class="hidden fixed inset-0 z-[60] bg-[#000000] md:hidden pt-[56px]" style="background:rgba(14,13,14,.98); backdrop-filter:blur(10px); border-top:1px solid rgba(255,255,255,.06)">
+<div id="mobile-nav" class="hidden fixed inset-0 z-[60] bg-[#0e0d0e] md:hidden pt-[56px]" style="background:rgba(14,13,14,.98); backdrop-filter:blur(10px); border-top:1px solid rgba(255,255,255,.06)">
   <div class="px-4 py-3 flex flex-col" style="max-width:800px; margin:0 auto">
     <a href="#/" data-nav="home" onclick="closeMobileNav()" class="py-3 px-2 text-[15px] flex items-center gap-3" style="font-family:'VCR OSD Mono', monospace; border-bottom:1px solid rgba(255,255,255,.06)"><i class="fa-solid fa-home w-5 text-violet-300"></i> HOME</a>
     <a href="#/download" data-nav="download" onclick="closeMobileNav()" class="py-3 px-2 text-[15px] flex items-center gap-3" style="font-family:'VCR OSD Mono', monospace; border-bottom:1px solid rgba(255,255,255,.06)"><i class="fa-solid fa-download w-5 text-violet-300"></i> DOWNLOAD</a>
@@ -89,7 +89,7 @@
 <!-- USER MENU -->
 <div id="user-menu" class="hidden absolute z-[70] right-4 top-[62px] w-64 glass border border-white/10 rounded-2xl shadow-2xl overflow-hidden text-sm" style="position:fixed">
   <div id="um-banner" class="h-[52px] w-full relative overflow-hidden" style="background:linear-gradient(135deg,#4c1d95,#1e1b4b); background-size:cover; background-position:center"></div>
-  <div class="px-4 py-3 border-b border-white/10 -mt-1 relative z-10" style="background:#0a0a0a">
+  <div class="px-4 py-3 border-b border-white/10 -mt-1 relative z-10" style="background:#282c34">
     <div class="flex items-center gap-3">
       <div id="um-big-av" class="w-9 h-9 flex-shrink-0 rounded-xl bg-[#1e1b4b] flex items-center justify-center text-white font-bold text-sm overflow-hidden border border-white/20"></div>
       <div>
@@ -98,7 +98,7 @@
       </div>
     </div>
   </div>
-  <div class="py-1" style="background:#0a0a0a">
+  <div class="py-1" style="background:#282c34">
     <div onclick="showPage('online'); closeUserMenu()" class="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 cursor-pointer text-sm"><i class="fa-solid fa-trophy w-4 text-violet-300"></i><span>Leaderboard</span></div>
     <div onclick="openProfileSettings(); closeUserMenu()" class="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 cursor-pointer text-sm"><i class="fa-solid fa-cog w-4 text-violet-300"></i><span>Profile settings</span></div>
     <div onclick="signOut(); closeUserMenu()" class="flex items-center gap-3 px-4 py-2.5 text-red-300 hover:bg-white/5 cursor-pointer text-sm"><i class="fa-solid fa-sign-out-alt w-4"></i><span>Sign out</span></div>
@@ -107,9 +107,9 @@
 
 <!-- AUTH MODAL -->
 <div id="modal-overlay" onclick="closeModalOutside(event)" class="hidden fixed inset-0 bg-black/70 z-[80] flex items-center justify-center" style="backdrop-filter:blur(6px)">
-  <div onclick="event.stopImmediatePropagation()" class="w-full max-w-[380px] mx-4 glass border border-white/10 rounded-2xl shadow-2xl" style="background:#0a0a0a">
+  <div onclick="event.stopImmediatePropagation()" class="w-full max-w-[380px] mx-4 glass border border-white/10 rounded-2xl shadow-2xl" style="background:#282c34">
     <div class="px-6 pt-6 pb-5">
-      <div class="flex rounded-xl p-1 bg-[#0f0f0f] mb-6 border border-white/10">
+      <div class="flex rounded-xl p-1 bg-[#1a1d24] mb-6 border border-white/10">
         <button onclick="switchTab('login')" id="mtab-login" class="flex-1 py-2.5 px-4 text-sm font-semibold transition-all rounded-lg bg-white/10 text-white" style="font-family:'VCR OSD Mono', monospace">Sign in</button>
         <button onclick="switchTab('register')" id="mtab-reg" class="flex-1 py-2.5 px-4 text-sm font-semibold transition-all text-slate-400 rounded-lg" style="font-family:'VCR OSD Mono', monospace">Register</button>
       </div>
@@ -130,7 +130,7 @@
         </div>
         <div class="mt-3">
           <div id="l-err" class="text-red-400 text-xs min-h-[16px] mb-2" style="font-family:Inter,sans-serif"></div>
-          <button onclick="doLogin()" id="l-btn" class="w-full bg-white text-[#000000] font-bold py-3 rounded-xl text-sm" style="font-family:'VCR OSD Mono', monospace">SIGN IN</button>
+          <button onclick="doLogin()" id="l-btn" class="w-full bg-white text-[#0e0d0e] font-bold py-3 rounded-xl text-sm" style="font-family:'VCR OSD Mono', monospace">SIGN IN</button>
           <button onclick="doForgot()" class="text-xs w-full text-center mt-3 text-slate-400 hover:text-violet-300" style="font-family:Inter,sans-serif">Forgot password?</button>
         </div>
       </div>
@@ -162,7 +162,7 @@
         <div class="mt-2">
           <div id="r-err" class="text-red-400 text-xs min-h-[16px]" style="font-family:Inter,sans-serif"></div>
           <div id="r-ok" class="text-emerald-400 text-xs min-h-[16px] mb-1" style="font-family:Inter,sans-serif"></div>
-          <button onclick="doRegister()" id="r-btn" class="w-full bg-white text-[#000000] font-bold py-3 rounded-xl text-sm" style="font-family:'VCR OSD Mono', monospace">CREATE ACCOUNT</button>
+          <button onclick="doRegister()" id="r-btn" class="w-full bg-white text-[#0e0d0e] font-bold py-3 rounded-xl text-sm" style="font-family:'VCR OSD Mono', monospace">CREATE ACCOUNT</button>
         </div>
       </div>
     </div>
@@ -171,7 +171,7 @@
 
 <!-- PROFILE SETTINGS MODAL -->
 <div id="profile-modal-overlay" onclick="closeProfileOutside(event)" class="hidden fixed inset-0 bg-black/70 z-[80] flex items-center justify-center" style="backdrop-filter:blur(6px)">
-  <div onclick="event.stopImmediatePropagation()" class="w-full max-w-lg mx-4 glass border border-white/10 rounded-2xl overflow-hidden max-h-[92vh] overflow-y-auto" style="background:#0a0a0a">
+  <div onclick="event.stopImmediatePropagation()" class="w-full max-w-lg mx-4 glass border border-white/10 rounded-2xl overflow-hidden max-h-[92vh] overflow-y-auto" style="background:#282c34">
     <div class="px-6 py-5">
       <div class="flex justify-between items-center mb-5">
         <div>
@@ -182,7 +182,7 @@
       </div>
       <div class="flex items-start gap-5">
         <div>
-          <div onclick="document.getElementById('avatar-file-input').click()" class="w-[82px] h-[82px] rounded-[22px] border border-white/10 overflow-hidden cursor-pointer bg-[#0f0f0f] flex items-center justify-center relative" id="ps-av-preview">
+          <div onclick="document.getElementById('avatar-file-input').click()" class="w-[82px] h-[82px] rounded-[22px] border border-white/10 overflow-hidden cursor-pointer bg-[#1a1d24] flex items-center justify-center relative" id="ps-av-preview">
             <span id="ps-av-initials" class="text-3xl font-bold text-violet-300" style="font-family:'VCR OSD Mono', monospace"></span>
             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-all"><i class="fa-solid fa-camera text-white text-xl"></i></div>
           </div>
@@ -214,7 +214,7 @@
       </div>
       <div class="mt-6">
         <label class="text-xs font-semibold text-slate-400 tracking-wider mb-1.5 block">PROFILE BANNER</label>
-        <div onclick="document.getElementById('banner-file-input').click()" class="relative w-full h-[92px] rounded-xl border border-white/10 bg-[#0f0f0f] overflow-hidden cursor-pointer group flex items-center justify-center" id="ps-banner-preview">
+        <div onclick="document.getElementById('banner-file-input').click()" class="relative w-full h-[92px] rounded-xl border border-white/10 bg-[#1a1d24] overflow-hidden cursor-pointer group flex items-center justify-center" id="ps-banner-preview">
           <div class="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30"></div>
           <div id="ps-banner-content" class="relative z-10 text-center">
             <i class="fa-solid fa-image text-slate-400 text-xl mb-1"></i>
@@ -245,7 +245,7 @@
         </div>
       </div>
       <div class="mt-7">
-        <button onclick="saveProfile()" id="ps-save-btn" class="w-full py-3 bg-white text-[#000000] font-extrabold text-sm rounded-xl" style="font-family:'VCR OSD Mono', monospace">SAVE CHANGES</button>
+        <button onclick="saveProfile()" id="ps-save-btn" class="w-full py-3 bg-white text-[#0e0d0e] font-extrabold text-sm rounded-xl" style="font-family:'VCR OSD Mono', monospace">SAVE CHANGES</button>
         <div id="ps-msg" class="text-xs text-center h-4 mt-3" style="font-family:Inter,sans-serif"></div>
         <div class="text-[10px] text-center text-slate-500 mt-2" style="font-family:Inter,sans-serif">Banner will be shown on your profile and user menu</div>
       </div>
@@ -281,7 +281,7 @@
         </div>
         <p style="margin:10px auto 0 auto; max-width:520px; color:#b8b5c8; font-size:14px; line-height:1.6; font-family:Inter,sans-serif">Built for All. The next-generation Psych Engine fork with more customization and features.</p>
 
-        <a href="https://github.com/SametGkTe/Funky-Further-Engine/releases/latest" target="_blank" rel="noopener" data-release-link style="margin-top:14px; display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:#0f0f0f; border:1px solid rgba(255,255,255,.08); color:#d8d6e2; font-size:12px; text-decoration:none">
+        <a href="https://github.com/SametGkTe/Funky-Further-Engine/releases/latest" target="_blank" rel="noopener" data-release-link style="margin-top:14px; display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:#1a1d24; border:1px solid rgba(255,255,255,.08); color:#d8d6e2; font-size:12px; text-decoration:none">
           <span style="padding:2px 7px; border-radius:999px; background:rgba(139,92,246,.2); color:#c4b5fd; font-weight:800; font-size:10px; letter-spacing:.6px; font-family:'VCR OSD Mono', monospace">NEW</span>
           <span data-release-name style="font-family:'VCR OSD Mono', monospace">Further Engine 1.7.0</span>
           <span style="color:#6b7280">•</span>
@@ -308,7 +308,6 @@
           <span>Press ENTER to start • Classic Psych look • V-Slice toggle</span>
           <a href="#/download" style="color:#c4b5fd">GET STARTED →</a>
         </div>
-
       </div>
     </div>
 
@@ -318,12 +317,12 @@
         <h3>See it in motion</h3>
         <p style="text-align:center; color:#9aa0b6; margin-top:6px">Switch between the classic Psych look and the new V-Slice style menus, browse mods, chart your own songs — all in one engine.</p>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px">
-          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#080808"><img src="assets/img/screens/wmainmenu.webp" alt="V-Slice style main menu" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#0f0f0f; border-top:1px solid rgba(255,255,255,.06)">V-Slice style main menu</div></div>
-          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#080808"><img src="assets/img/screens/wfreeplay.webp" alt="Reworked freeplay" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#0f0f0f; border-top:1px solid rgba(255,255,255,.06)">Reworked freeplay</div></div>
-          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#080808"><img src="assets/img/screens/achievements.webp" alt="Achievements" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#0f0f0f; border-top:1px solid rgba(255,255,255,.06)">Achievements</div></div>
-          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#080808"><img src="assets/img/screens/modsmenu.webp" alt="Mods menu" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#0f0f0f; border-top:1px solid rgba(255,255,255,.06)">Mods menu</div></div>
-          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#080808"><img src="assets/img/screens/chart.webp" alt="Chart editor" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#0f0f0f; border-top:1px solid rgba(255,255,255,.06)">Chart editor</div></div>
-          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#080808"><img src="assets/img/screens/options.webp" alt="Deep options" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#0f0f0f; border-top:1px solid rgba(255,255,255,.06)">Deep options</div></div>
+          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#121418"><img src="assets/img/screens/wmainmenu.webp" alt="V-Slice style main menu" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#1a1d24; border-top:1px solid rgba(255,255,255,.06)">V-Slice style main menu</div></div>
+          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#121418"><img src="assets/img/screens/wfreeplay.webp" alt="Reworked freeplay" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#1a1d24; border-top:1px solid rgba(255,255,255,.06)">Reworked freeplay</div></div>
+          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#121418"><img src="assets/img/screens/achievements.webp" alt="Achievements" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#1a1d24; border-top:1px solid rgba(255,255,255,.06)">Achievements</div></div>
+          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#121418"><img src="assets/img/screens/modsmenu.webp" alt="Mods menu" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#1a1d24; border-top:1px solid rgba(255,255,255,.06)">Mods menu</div></div>
+          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#121418"><img src="assets/img/screens/chart.webp" alt="Chart editor" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#1a1d24; border-top:1px solid rgba(255,255,255,.06)">Chart editor</div></div>
+          <div style="border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#121418"><img src="assets/img/screens/options.webp" alt="Deep options" loading="lazy" style="width:100%; display:block"><div style="padding:8px 10px; font-size:11px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; background:#1a1d24; border-top:1px solid rgba(255,255,255,.06)">Deep options</div></div>
         </div>
         <p style="text-align:center; margin-top:10px; font-size:11px; color:#6b7280; font-family:Inter,sans-serif">Screenshots from the current build. Visuals may change between releases.</p>
       </div>
@@ -412,19 +411,19 @@
             <i class="fa-brands fa-windows" style="font-size:32px; color:#60a5fa"></i>
             <span class="dl-label">Windows</span>
             <span class="dl-meta" data-asset-meta="x86_64 • ZIP">x86_64 • ZIP</span>
-            <span class="FunkinButton" style="font-size:11px; padding:6px 12px; margin-top:6px; background:#fff; color:#000000">DOWNLOAD</span>
+            <span class="FunkinButton" style="font-size:11px; padding:6px 12px; margin-top:6px; background:#fff; color:#0e0d0e">DOWNLOAD</span>
           </a>
           <a data-platform="linux" href="https://github.com/SametGkTe/Funky-Further-Engine/releases/latest" target="_blank" rel="noopener">
             <i class="fa-brands fa-linux" style="font-size:32px; color:#fbbf24"></i>
             <span class="dl-label">Linux</span>
             <span class="dl-meta" data-asset-meta="x86_64 • ZIP">x86_64 • ZIP</span>
-            <span class="FunkinButton" style="font-size:11px; padding:6px 12px; margin-top:6px; background:#fff; color:#000000">DOWNLOAD</span>
+            <span class="FunkinButton" style="font-size:11px; padding:6px 12px; margin-top:6px; background:#fff; color:#0e0d0e">DOWNLOAD</span>
           </a>
           <a data-platform="macos" href="https://github.com/SametGkTe/Funky-Further-Engine/releases/latest" target="_blank" rel="noopener">
             <i class="fa-brands fa-apple" style="font-size:32px; color:#fff"></i>
             <span class="dl-label">macOS</span>
             <span class="dl-meta" data-asset-meta="Intel & Apple Silicon">Intel & Apple Silicon</span>
-            <span class="FunkinButton" style="font-size:11px; padding:6px 12px; margin-top:6px; background:#fff; color:#000000">DOWNLOAD</span>
+            <span class="FunkinButton" style="font-size:11px; padding:6px 12px; margin-top:6px; background:#fff; color:#0e0d0e">DOWNLOAD</span>
           </a>
           <a data-platform="ios" href="https://github.com/SametGkTe/Funky-Further-Engine/releases/latest" target="_blank" rel="noopener">
             <i class="fa-brands fa-apple" style="font-size:32px; color:#a5b4fc"></i>
@@ -434,7 +433,6 @@
           </a>
         </div>
         <p style="font-size:11px; color:#6b7280; margin-top:10px; font-family:Inter,sans-serif">Direct links always point at the newest release. macOS ships both Intel and Apple Silicon builds — pick yours on the release page.</p>
-
         <a href="https://github.com/SametGkTe/Funky-Further-Engine" target="_blank" rel="noopener" class="Coolbox" style="display:inline-flex; flex-direction:row; gap:10px; margin:16px auto 0 auto; padding:10px 16px; text-decoration:none">
           <i class="fa-brands fa-github" style="font-size:20px"></i>
           <span style="text-align:left"><span style="font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">Source Code</span><br><span style="font-size:11px; color:#9aa0b6; font-family:Inter,sans-serif">Fork • Contribute • Extend</span></span>
@@ -453,17 +451,9 @@
         </div>
         <h2>Official Modpacks</h2>
         <p style="color:#9aa0b6; margin-top:6px; max-width:600px; margin-left:auto; margin-right:auto">Curated collections you can install right inside Further Engine. The list below is live from <a href="https://github.com/SametGkTe/Funky-Further-Engine/blob/main/updates/modpacks.json" target="_blank" rel="noopener" style="color:#c4b5fd">updates/modpacks.json</a> — update the JSON and the site updates automatically. In-game you get the same packs via the Modpack Browser.</p>
-        <div style="margin-top:14px; display:flex; align-items:center; gap:12px; padding:12px; border-radius:14px; background:#000000; border:1px solid rgba(255,255,255,.08); text-align:left; max-width:640px; margin-left:auto; margin-right:auto">
-          <img src="assets/img/further-tool-icon.png" alt="" width="44" height="44" style="width:44px;height:44px;object-fit:contain; border-radius:8px; background:#fff; padding:3px; flex-shrink:0">
-          <div style="flex:1; min-width:0">
-            <div style="font-family:'VCR OSD Mono', monospace; font-size:12px; color:#fff; letter-spacing:.3px">Further Tool — Official Helper</div>
-            <div style="font-size:11px; color:#9aa0b6; line-height:1.35; font-family:Inter,sans-serif">Siyah-beyaz mod manager • Mod yönetimi, oyun güncelleme kontrolü ve hızlı başlatma</div>
-          </div>
-          <a href="https://github.com/SametGkTe/Further-Tool" target="_blank" rel="noopener" class="FunkinButton white ux-bump" style="flex-shrink:0; padding:8px 12px; border-radius:999px; font-size:11px; display:inline-flex; align-items:center; gap:6px; text-decoration:none"><img src="assets/img/further-tool-icon.png" alt="" width="14" height="14" style="width:14px;height:14px; border-radius:3px"> Open Tool</a>
-        </div>
         <div class="filter-bar" style="margin-top:14px">
-          <input id="mp-search" type="search" placeholder="Search modpacks…" oninput="filterModpacks()" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.12); color:#fff; padding:9px 12px; border-radius:10px; font-size:13px; width:220px; font-family:Inter,sans-serif">
-          <select id="mp-tier" onchange="filterModpacks()" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.12); color:#fff; padding:9px 10px; border-radius:10px; font-size:12px; font-family:'VCR OSD Mono', monospace">
+          <input id="mp-search" type="search" placeholder="Search modpacks…" oninput="filterModpacks()" style="background:#1a1d24; border:1px solid rgba(255,255,255,.12); color:#fff; padding:9px 12px; border-radius:10px; font-size:13px; width:220px; font-family:Inter,sans-serif">
+          <select id="mp-tier" onchange="filterModpacks()" style="background:#1a1d24; border:1px solid rgba(255,255,255,.12); color:#fff; padding:9px 10px; border-radius:10px; font-size:12px; font-family:'VCR OSD Mono', monospace">
             <option value="all">All tiers</option>
             <option value="lite">Lite</option>
             <option value="medium">Medium</option>
@@ -483,7 +473,7 @@
           <div style="font-family:'VCR OSD Mono', monospace; color:#fff">No modpacks match your filter</div>
           <div style="font-size:12px; color:#9aa0b6; margin-top:4px; font-family:Inter,sans-serif">Try a different search or tier.</div>
         </div>
-        <div style="margin-top:16px; padding:12px; border-radius:12px; background:#080808; border:1px solid rgba(255,255,255,.06); display:flex; gap:10px; align-items:center">
+        <div style="margin-top:16px; padding:12px; border-radius:12px; background:#121418; border:1px solid rgba(255,255,255,.06); display:flex; gap:10px; align-items:center">
           <i class="fa-solid fa-circle-question" style="color:#c4b5fd"></i>
           <div style="font-size:12px; color:#9aa0b6; font-family:Inter,sans-serif; line-height:1.5"><b style="color:#fff; font-family:'VCR OSD Mono', monospace">How it works in-game:</b> Further Engine → Mods → Modpacks → pick a tier → Download / Import. GitHub & MediaFire mirrors are supported. See <a href="https://github.com/SametGkTe/Funky-Further-Engine/blob/main/docs/MODDING_TR.md" target="_blank" rel="noopener" style="color:#c4b5fd">Modding guide</a> for <code style="background:rgba(255,255,255,.06); padding:1px 5px; border-radius:4px">pack.json</code> details.</div>
         </div>
@@ -502,35 +492,35 @@
         <h2>Global Leaderboard</h2>
         <p style="color:#9aa0b6; font-size:12px; margin-top:4px">Top players competing worldwide — Ultra Points & Achievements</p>
         <div style="display:flex; justify-content:center; margin-top:12px">
-          <div style="display:inline-flex; background:#0f0f0f; border:1px solid rgba(255,255,255,.08); border-radius:999px; padding:3px; gap:3px">
+          <div style="display:inline-flex; background:#1a1d24; border:1px solid rgba(255,255,255,.08); border-radius:999px; padding:3px; gap:3px">
             <button onclick="switchLBTab('score')" id="lb-tab-score" role="tab" aria-selected="true" class="TabButton active" style="border-radius:999px; padding:7px 16px; font-size:12px; font-family:'VCR OSD Mono', monospace"><i class="fa-solid fa-trophy"></i> Ultra Points</button>
             <button onclick="switchLBTab('achievements')" id="lb-tab-achievements" role="tab" aria-selected="false" class="TabButton" style="border-radius:999px; padding:7px 16px; font-size:12px; font-family:'VCR OSD Mono', monospace"><i class="fa-solid fa-star"></i> Achievements</button>
           </div>
         </div>
         <!-- stats row -->
         <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:14px; text-align:center">
-          <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px">
+          <div style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px">
             <div id="lb-p" style="font-family:'VCR OSD Mono', monospace; font-size:18px; color:#fff">—</div>
             <div style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">PLAYERS</div>
           </div>
-          <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px">
+          <div style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px">
             <div id="lb-s" style="font-family:'VCR OSD Mono', monospace; font-size:18px; color:#fff">—</div>
             <div id="lb-s-label" style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">SONGS PLAYED</div>
           </div>
-          <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px">
+          <div style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px">
             <div id="lb-t" style="font-family:'VCR OSD Mono', monospace; font-size:18px; color:#fff">—</div>
             <div id="lb-t-label" style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">TOP SCORE</div>
           </div>
-          <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px">
+          <div style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px">
             <div id="lb-upd" style="font-family:'VCR OSD Mono', monospace; font-size:18px; color:#fff">—</div>
             <div style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">LAST UPDATE</div>
           </div>
         </div>
         <!-- podium -->
         <div id="lb-podium" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px">
-          <div class="podium-card-fe" id="lb-pod-2" style="order:1; margin-top:18px"><div class="rank-badge-fe rank-2-fe">2</div><div id="pod2-av" style="width:56px; height:56px; margin:0 auto 6px auto; border-radius:14px; overflow:hidden; background:#0f0f0f; display:flex; align-items:center; justify-content:center">—</div><div id="pod2-name" style="font-family:'VCR OSD Mono', monospace; font-size:12px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">—</div><div id="pod2-meta" style="font-size:11px; color:#9aa0b6">—</div></div>
-          <div class="podium-card-fe gold" id="lb-pod-1" style="order:2"><div class="rank-badge-fe rank-1-fe">1</div><div id="pod1-av" style="width:64px; height:64px; margin:0 auto 6px auto; border-radius:14px; overflow:hidden; background:#0f0f0f; display:flex; align-items:center; justify-content:center; border:2px solid rgba(251,191,36,.4)">👑</div><div id="pod1-name" style="font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">—</div><div id="pod1-meta" style="font-size:11px; color:#9aa0b6">—</div><div id="pod1-flag" style="font-size:18px; margin-top:4px"></div><div id="pod1-score" style="font-family:'VCR OSD Mono', monospace; font-size:12px; color:#fbbf24; margin-top:2px">—</div></div>
-          <div class="podium-card-fe bronze" id="lb-pod-3" style="order:3; margin-top:18px"><div class="rank-badge-fe rank-3-fe">3</div><div id="pod3-av" style="width:56px; height:56px; margin:0 auto 6px auto; border-radius:14px; overflow:hidden; background:#0f0f0f; display:flex; align-items:center; justify-content:center">—</div><div id="pod3-name" style="font-family:'VCR OSD Mono', monospace; font-size:12px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">—</div><div id="pod3-meta" style="font-size:11px; color:#9aa0b6">—</div></div>
+          <div class="podium-card-fe" id="lb-pod-2" style="order:1; margin-top:18px"><div class="rank-badge-fe rank-2-fe">2</div><div id="pod2-av" style="width:56px; height:56px; margin:0 auto 6px auto; border-radius:14px; overflow:hidden; background:#1a1d24; display:flex; align-items:center; justify-content:center">—</div><div id="pod2-name" style="font-family:'VCR OSD Mono', monospace; font-size:12px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">—</div><div id="pod2-meta" style="font-size:11px; color:#9aa0b6">—</div></div>
+          <div class="podium-card-fe gold" id="lb-pod-1" style="order:2"><div class="rank-badge-fe rank-1-fe">1</div><div id="pod1-av" style="width:64px; height:64px; margin:0 auto 6px auto; border-radius:14px; overflow:hidden; background:#1a1d24; display:flex; align-items:center; justify-content:center; border:2px solid rgba(251,191,36,.4)">👑</div><div id="pod1-name" style="font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">—</div><div id="pod1-meta" style="font-size:11px; color:#9aa0b6">—</div><div id="pod1-flag" style="font-size:18px; margin-top:4px"></div><div id="pod1-score" style="font-family:'VCR OSD Mono', monospace; font-size:12px; color:#fbbf24; margin-top:2px">—</div></div>
+          <div class="podium-card-fe bronze" id="lb-pod-3" style="order:3; margin-top:18px"><div class="rank-badge-fe rank-3-fe">3</div><div id="pod3-av" style="width:56px; height:56px; margin:0 auto 6px auto; border-radius:14px; overflow:hidden; background:#1a1d24; display:flex; align-items:center; justify-content:center">—</div><div id="pod3-name" style="font-family:'VCR OSD Mono', monospace; font-size:12px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">—</div><div id="pod3-meta" style="font-size:11px; color:#9aa0b6">—</div></div>
         </div>
       </div>
     </div>
@@ -539,15 +529,15 @@
       <div class="Item">
         <div id="lb-country-chips" style="display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin-bottom:10px"></div>
         <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:center; margin-bottom:10px">
-          <select id="lb-country" onchange="setLBCountry(this.value)" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.12); color:#fff; padding:8px 10px; border-radius:10px; font-size:12px; font-family:'VCR OSD Mono', monospace; min-width:160px"><option value="all">🌍 All countries</option></select>
-          <select id="lb-sort" onchange="setLBSort(this.value)" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.12); color:#fff; padding:8px 10px; border-radius:10px; font-size:12px; font-family:'VCR OSD Mono', monospace">
+          <select id="lb-country" onchange="setLBCountry(this.value)" style="background:#1a1d24; border:1px solid rgba(255,255,255,.12); color:#fff; padding:8px 10px; border-radius:10px; font-size:12px; font-family:'VCR OSD Mono', monospace; min-width:160px"><option value="all">🌍 All countries</option></select>
+          <select id="lb-sort" onchange="setLBSort(this.value)" style="background:#1a1d24; border:1px solid rgba(255,255,255,.12); color:#fff; padding:8px 10px; border-radius:10px; font-size:12px; font-family:'VCR OSD Mono', monospace">
             <option value="rank">Sort by Rank</option>
             <option value="level">Level</option>
             <option value="accuracy">Accuracy</option>
             <option value="songs">Songs played</option>
           </select>
           <div style="position:relative; flex:1; min-width:180px; max-width:260px">
-            <input id="lb-search" type="search" oninput="lbSearch(this.value)" placeholder="Search players…" style="width:100%; background:#0f0f0f; border:1px solid rgba(255,255,255,.12); color:#fff; padding:8px 12px 8px 34px; border-radius:10px; font-size:13px; font-family:Inter,sans-serif">
+            <input id="lb-search" type="search" oninput="lbSearch(this.value)" placeholder="Search players…" style="width:100%; background:#1a1d24; border:1px solid rgba(255,255,255,.12); color:#fff; padding:8px 12px 8px 34px; border-radius:10px; font-size:13px; font-family:Inter,sans-serif">
             <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); color:#6b7280; font-size:12px"></i>
           </div>
           <button onclick="clearLBSearch()" class="FunkinButton" style="padding:7px 12px; border-radius:10px; font-size:12px">Clear</button>
@@ -559,7 +549,7 @@
           <div id="lb-empty" class="hidden" style="display:none; justify-content:center; padding:32px; text-align:center; color:#9aa0b6; font-size:13px; font-family:Inter,sans-serif"></div>
           <div style="overflow-x:auto; border-radius:12px; border:1px solid rgba(255,255,255,.06)">
             <table id="lb-table" class="lb-table w-full hidden" style="min-width:600px">
-              <thead><tr id="lb-thead" style="text-align:left; background:#0f0f0f"></tr></thead>
+              <thead><tr id="lb-thead" style="text-align:left; background:#1a1d24"></tr></thead>
               <tbody id="lb-body" class="text-sm"></tbody>
             </table>
           </div>
@@ -586,39 +576,39 @@
         </div>
         <div id="faq-list" style="display:grid; gap:8px">
           <!-- FAQ items injected by JS or static -->
-          <details class="faq-item" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
+          <details class="faq-item" style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
             <summary onclick="event.preventDefault(); toggleFaq(this)" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; list-style:none; font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">What is Further Engine? <i class="fa-solid fa-chevron-down" style="color:#9aa0b6; transition:.2s"></i></summary>
             <div class="faq-answer hidden" style="padding:0 16px 14px 16px; color:#b8b5c8; font-size:13px; line-height:1.6; font-family:Inter,sans-serif">Further Engine is an enhanced, next-generation fork of Psych Engine — the popular Friday Night Funkin' mod engine. It adds powerful online features like global leaderboards, account systems, level progression, and modern optimizations on top of the core engine.</div>
           </details>
-          <details class="faq-item" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
+          <details class="faq-item" style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
             <summary onclick="event.preventDefault(); toggleFaq(this)" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; list-style:none; font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">What does Further Engine add over regular Psych Engine? <i class="fa-solid fa-chevron-down" style="color:#9aa0b6"></i></summary>
             <div class="faq-answer hidden" style="padding:0 16px 14px 16px; color:#b8b5c8; font-size:13px; line-height:1.6; font-family:Inter,sans-serif">Online accounts & logins (web + in-game), global real-time leaderboards, XP and level system, automatic score syncing, cross-platform profiles, optimized Android builds, and improved performance across the board.</div>
           </details>
-          <details class="faq-item" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
+          <details class="faq-item" style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
             <summary onclick="event.preventDefault(); toggleFaq(this)" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; list-style:none; font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">How do I create an account? <i class="fa-solid fa-chevron-down" style="color:#9aa0b6"></i></summary>
             <div class="faq-answer hidden" style="padding:0 16px 14px 16px; color:#b8b5c8; font-size:13px; line-height:1.6; font-family:Inter,sans-serif">You can register directly on this website by clicking the Register button. You can also create an account directly in-game. Once registered, the same credentials work everywhere.</div>
           </details>
-          <details class="faq-item" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
+          <details class="faq-item" style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
             <summary onclick="event.preventDefault(); toggleFaq(this)" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; list-style:none; font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">Is an account required to play? <i class="fa-solid fa-chevron-down" style="color:#9aa0b6"></i></summary>
             <div class="faq-answer hidden" style="padding:0 16px 14px 16px; color:#b8b5c8; font-size:13px; line-height:1.6; font-family:Inter,sans-serif">No. You can play completely offline without an account. However, you won't be able to access leaderboards or cloud features until you register. Accounts can be created anytime.</div>
           </details>
-          <details class="faq-item" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
+          <details class="faq-item" style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
             <summary onclick="event.preventDefault(); toggleFaq(this)" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; list-style:none; font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">How does the level system work? <i class="fa-solid fa-chevron-down" style="color:#9aa0b6"></i></summary>
             <div class="faq-answer hidden" style="padding:0 16px 14px 16px; color:#b8b5c8; font-size:13px; line-height:1.6; font-family:Inter,sans-serif">Level is calculated based on your total score across all songs. Level = √(Total Score / 1000). Only your highest score on each song/difficulty counts towards your total progress.</div>
           </details>
-          <details class="faq-item" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
+          <details class="faq-item" style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
             <summary onclick="event.preventDefault(); toggleFaq(this)" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; list-style:none; font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">Can I use mods with Further Engine? <i class="fa-solid fa-chevron-down" style="color:#9aa0b6"></i></summary>
             <div class="faq-answer hidden" style="padding:0 16px 14px 16px; color:#b8b5c8; font-size:13px; line-height:1.6; font-family:Inter,sans-serif">Yes! Further Engine is 100% compatible with Lua and HScript mods. Just place them in your /mods folder. Note: Online scores are only tracked for official base game songs.</div>
           </details>
-          <details class="faq-item" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
+          <details class="faq-item" style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
             <summary onclick="event.preventDefault(); toggleFaq(this)" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; list-style:none; font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">Which platforms are supported? <i class="fa-solid fa-chevron-down" style="color:#9aa0b6"></i></summary>
             <div class="faq-answer hidden" style="padding:0 16px 14px 16px; color:#b8b5c8; font-size:13px; line-height:1.6; font-family:Inter,sans-serif">Android, Windows, Linux, macOS (Intel and Apple Silicon) and iOS. Every platform is built from the same source and published on GitHub Releases. The project is still in beta, so mobile builds in particular may have platform-specific bugs.</div>
           </details>
-          <details class="faq-item" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
+          <details class="faq-item" style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
             <summary onclick="event.preventDefault(); toggleFaq(this)" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; list-style:none; font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">Is multiplayer / online rooms available? <i class="fa-solid fa-chevron-down" style="color:#9aa0b6"></i></summary>
             <div class="faq-answer hidden" style="padding:0 16px 14px 16px; color:#b8b5c8; font-size:13px; line-height:1.6; font-family:Inter,sans-serif">No. Online room creation and multiplayer features are NOT available yet. They will be added soon! The game has a login system and scores turn into UP points that go to the global leaderboard.</div>
           </details>
-          <details class="faq-item" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
+          <details class="faq-item" style="background:#1a1d24; border:1px solid rgba(255,255,255,.06); border-radius:12px; overflow:hidden">
             <summary onclick="event.preventDefault(); toggleFaq(this)" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:10px; list-style:none; font-family:'VCR OSD Mono', monospace; font-size:13px; color:#fff">What data does Further Engine store about me? <i class="fa-solid fa-chevron-down" style="color:#9aa0b6"></i></summary>
             <div class="faq-answer hidden" style="padding:0 16px 14px 16px; color:#b8b5c8; font-size:13px; line-height:1.6; font-family:Inter,sans-serif">Your email, username, country, avatar/banner and your scores. For fair play we also record the IP address your account signs in from — it is stored server-side, never shown to other players, used only to detect duplicate accounts, and single-account records are deleted after 90 days. Delete your account and everything goes with it.</div>
           </details>
@@ -637,7 +627,7 @@
         <h2>Credits</h2>
         <p style="color:#9aa0b6; margin-top:4px">The people who made Further Engine possible</p>
         <div style="display:flex; justify-content:center; gap:16px; margin-top:18px; flex-wrap:wrap">
-          <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px; width:260px; text-align:center">
+          <div style="background:#1a1d24; border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px; width:260px; text-align:center">
             <img src="assets/img/gkte.webp" alt="SametGkTe" width="96" height="96" style="width:96px; height:96px; border-radius:16px; object-fit:cover; margin:0 auto 10px auto; display:block; border:2px solid rgba(139,92,246,.3)">
             <div style="font-family:'VCR OSD Mono', monospace; font-size:15px; color:#fff">SametGkTe</div>
             <div style="font-size:11px; letter-spacing:.6px; color:#c4b5fd; font-family:'VCR OSD Mono', monospace; margin-top:2px">CREATOR & LEAD DEVELOPER</div>
@@ -648,103 +638,14 @@
             </div>
           </div>
         </div>
-        <div style="margin-top:18px; padding:14px; border-radius:12px; background:#080808; border:1px solid rgba(255,255,255,.06)">
+        <div style="margin-top:18px; padding:14px; border-radius:12px; background:#121418; border:1px solid rgba(255,255,255,.06)">
           <div style="font-family:'VCR OSD Mono', monospace; font-size:12px; color:#fff; margin-bottom:8px">Base Projects & Contributors</div>
           <div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center">
-            <a href="https://github.com/ShadowMario/FNF-PsychEngine" target="_blank" rel="noopener" style="padding:6px 10px; border-radius:999px; background:#0f0f0f; border:1px solid rgba(255,255,255,.08); color:#d8d6e2; font-size:11px; font-family:'VCR OSD Mono', monospace; text-decoration:none">Shadow Mario — Psych Engine</a>
-            <span style="padding:6px 10px; border-radius:999px; background:#0f0f0f; border:1px solid rgba(255,255,255,.08); color:#9aa0b6; font-size:11px; font-family:Inter,sans-serif">RiverOaken — Psych Artist</span>
-            <a href="https://github.com/FunkinCrew" target="_blank" rel="noopener" style="padding:6px 10px; border-radius:999px; background:#0f0f0f; border:1px solid rgba(255,255,255,.08); color:#d8d6e2; font-size:11px; font-family:'VCR OSD Mono', monospace; text-decoration:none">The Funkin' Crew — FNF</a>
+            <a href="https://github.com/ShadowMario/FNF-PsychEngine" target="_blank" rel="noopener" style="padding:6px 10px; border-radius:999px; background:#1a1d24; border:1px solid rgba(255,255,255,.08); color:#d8d6e2; font-size:11px; font-family:'VCR OSD Mono', monospace; text-decoration:none">Shadow Mario — Psych Engine</a>
+            <span style="padding:6px 10px; border-radius:999px; background:#1a1d24; border:1px solid rgba(255,255,255,.08); color:#9aa0b6; font-size:11px; font-family:Inter,sans-serif">RiverOaken — Psych Artist</span>
+            <a href="https://github.com/FunkinCrew" target="_blank" rel="noopener" style="padding:6px 10px; border-radius:999px; background:#1a1d24; border:1px solid rgba(255,255,255,.08); color:#d8d6e2; font-size:11px; font-family:'VCR OSD Mono', monospace; text-decoration:none">The Funkin' Crew — FNF</a>
           </div>
           <p style="font-size:11px; color:#6b7280; margin-top:10px; font-family:Inter,sans-serif">Further Engine is an independent community project. Not affiliated with the Psych Engine Team or Funkin' Crew.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========== PROFILE (public) ========== -->
-  <div id="page-profile" class="page">
-    <div class="RoundedContents">
-      <div class="Item" style="padding:0; overflow:hidden">
-        <div id="profile-loading" style="padding:40px; text-align:center; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">
-          <div style="display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; background:#0f0f0f; border:1px solid rgba(255,255,255,.06)">
-            <i class="fa-solid fa-spinner fa-spin" style="color:#c4b5fd"></i> Loading profile…
-          </div>
-        </div>
-        <div id="profile-notfound" style="display:none; padding:40px; text-align:center">
-          <div style="width:64px;height:64px;margin:0 auto 14px auto;border-radius:16px;background:#0f0f0f;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-user-xmark" style="font-size:22px;color:#6b7280"></i></div>
-          <div style="font-family:'VCR OSD Mono', monospace; font-size:18px; color:#fff">Player not found</div>
-          <div style="font-size:13px; color:#9aa0b6; margin-top:6px; font-family:Inter,sans-serif">No player named <span id="profile-notfound-name" style="color:#fff; font-family:'VCR OSD Mono', monospace"></span> exists.</div>
-          <div style="display:flex; gap:8px; justify-content:center; margin-top:16px; flex-wrap:wrap">
-            <a href="#/leaderboard" class="FunkinButton white" style="padding:8px 14px; border-radius:999px; text-decoration:none; font-size:12px">Back to leaderboard</a>
-            <a href="#/" class="FunkinButton" style="padding:8px 14px; border-radius:999px; text-decoration:none; font-size:12px">Home</a>
-          </div>
-        </div>
-        <div id="profile-content" style="display:none">
-          <!-- banner -->
-          <div id="profile-banner" style="height:220px; background:linear-gradient(135deg,#1e1b4b 0%, #0a0a0a 55%, #4c1d95 100%); background-size:cover; background-position:center; position:relative">
-            <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.58), transparent 62%)"></div>
-            <div style="position:absolute; bottom:12px; right:12px; display:flex; gap:6px">
-              <button onclick="profileCopyLink()" class="FunkinButton" style="padding:6px 10px; border-radius:999px; font-size:11px; background:rgba(0,0,0,.55); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.14); color:#fff; display:inline-flex; align-items:center; gap:6px"><i class="fa-solid fa-link"></i> Copy link</button>
-              <a id="profile-lb-link" href="#/leaderboard" class="FunkinButton white" style="padding:6px 10px; border-radius:999px; font-size:11px; text-decoration:none; display:inline-flex; align-items:center; gap:6px"><i class="fa-solid fa-trophy"></i> Leaderboard</a>
-            </div>
-          </div>
-          <!-- avatar + header -->
-          <div style="padding:0 18px 14px 18px; margin-top:-46px; position:relative; z-index:1">
-            <div style="display:flex; gap:14px; align-items:flex-end; flex-wrap:wrap">
-              <div id="profile-avatar" style="width:96px; height:96px; border-radius:22px; overflow:hidden; background:#0f0f0f; border:3px solid #0a0a0a; display:flex; align-items:center; justify-content:center; font-family:'VCR OSD Mono', monospace; font-weight:800; font-size:28px; color:#c4b5fd; flex-shrink:0; box-shadow:0 8px 24px rgba(0,0,0,.45)"></div>
-              <div style="flex:1; min-width:220px; padding-bottom:6px">
-                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
-                  <h2 id="profile-username" style="font-family:'VCR OSD Mono', monospace; font-size:22px; color:#fff; margin:0; line-height:1.1; text-align:left; word-break:break-all"></h2>
-                  <span id="profile-badge" style="display:none; padding:2px 7px; border-radius:999px; font-size:10px; font-weight:800; font-family:'VCR OSD Mono', monospace; border:1px solid rgba(255,255,255,.08)"></span>
-                  <span id="profile-country-flag" style="font-size:18px" title=""></span>
-                  <span id="profile-country-name" style="font-size:12px; color:#9aa0b6; font-family:Inter,sans-serif"></span>
-                </div>
-                <div style="display:flex; align-items:center; gap:8px; margin-top:6px; flex-wrap:wrap">
-                  <span id="profile-level-pill" style="padding:3px 9px; border-radius:999px; background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.25); color:#c4b5fd; font-family:'VCR OSD Mono', monospace; font-size:11px; display:inline-flex; align-items:center; gap:5px"><i class="fa-solid fa-star" style="font-size:10px"></i> <span></span></span>
-                  <span id="profile-rank-pill" style="padding:3px 9px; border-radius:999px; background:#0f0f0f; border:1px solid rgba(255,255,255,.1); color:#d8d6e2; font-family:'VCR OSD Mono', monospace; font-size:11px; display:none"></span>
-                  <span style="font-size:11px; color:#6b7280; font-family:Inter,sans-serif">Public profile</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- stats grid -->
-          <div style="padding:0 18px 18px 18px">
-            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px">
-              <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:12px; text-align:center">
-                <div id="profile-up" style="font-family:'VCR OSD Mono', monospace; font-size:17px; color:#c4b5fd; font-weight:800">—</div>
-                <div style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">ULTRA POINTS</div>
-              </div>
-              <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:12px; text-align:center">
-                <div id="profile-acc" style="font-family:'VCR OSD Mono', monospace; font-size:17px; color:#fff; font-weight:800">—</div>
-                <div style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">BEST ACCURACY</div>
-              </div>
-              <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:12px; text-align:center">
-                <div id="profile-songs" style="font-family:'VCR OSD Mono', monospace; font-size:17px; color:#fff; font-weight:800">—</div>
-                <div style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">SONGS PLAYED</div>
-              </div>
-              <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:12px; text-align:center">
-                <div id="profile-level" style="font-family:'VCR OSD Mono', monospace; font-size:17px; color:#fff; font-weight:800">—</div>
-                <div style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">LEVEL</div>
-              </div>
-            </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px">
-              <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:12px; text-align:center">
-                <div id="profile-ach" style="font-family:'VCR OSD Mono', monospace; font-size:16px; color:#fbbf24; font-weight:800">—</div>
-                <div style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">ACHIEVEMENTS</div>
-                <div id="profile-ach-tier" style="margin-top:6px; display:flex; justify-content:center"></div>
-              </div>
-              <div style="background:#0f0f0f; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:12px; text-align:center">
-                <div id="profile-rank-big" style="font-family:'VCR OSD Mono', monospace; font-size:16px; color:#fff; font-weight:800">—</div>
-                <div style="font-size:9px; letter-spacing:.6px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace">GLOBAL RANK</div>
-                <div id="profile-rank-pct" style="font-size:11px; color:#9aa0b6; margin-top:4px; font-family:Inter,sans-serif"></div>
-              </div>
-            </div>
-            <div id="profile-extra" style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap"></div>
-            <div style="margin-top:14px; padding:10px 12px; border-radius:12px; background:#080808; border:1px solid rgba(255,255,255,.06); display:flex; gap:10px; align-items:center; font-size:11px; color:#9aa0b6; font-family:Inter,sans-serif; line-height:1.5">
-              <i class="fa-solid fa-circle-info" style="color:#c4b5fd; flex-shrink:0"></i>
-              <span>This is a public profile. Stats are synced live from the Further Engine global leaderboard. Banner and avatar are shown exactly as the player set them in-game.</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -760,7 +661,7 @@
         </div>
         <h2>Moderation</h2>
         <p style="color:#9aa0b6; font-size:12px; margin-top:4px">Multi-account detection and leaderboard integrity</p>
-        <div id="admin-denied" class="hidden" style="max-width:380px; margin:14px auto 0 auto; text-align:center; background:#0f0f0f; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px">
+        <div id="admin-denied" class="hidden" style="max-width:380px; margin:14px auto 0 auto; text-align:center; background:#1a1d24; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px">
           <i class="fa-solid fa-lock" style="font-size:28px; color:#6b7280"></i>
           <div style="font-family:'VCR OSD Mono', monospace; margin-top:8px; color:#fff">Not authorized</div>
           <p style="font-size:12px; color:#9aa0b6; margin-top:6px; font-family:Inter,sans-serif">This area is limited to staff accounts. If you believe this is a mistake, sign in with your admin account.</p>
@@ -769,7 +670,7 @@
         <div id="admin-body" class="hidden" style="text-align:left; margin-top:14px">
           <div id="admin-overview" style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:12px"></div>
           <div style="display:flex; justify-content:center; margin-bottom:12px">
-            <div style="display:inline-flex; flex-wrap:wrap; justify-content:center; background:#0f0f0f; border:1px solid rgba(255,255,255,.08); border-radius:999px; padding:3px" role="tablist">
+            <div style="display:inline-flex; flex-wrap:wrap; justify-content:center; background:#1a1d24; border:1px solid rgba(255,255,255,.08); border-radius:999px; padding:3px" role="tablist">
               <button onclick="adminTab('suspects')" id="admin-tab-suspects" role="tab" aria-selected="true" class="TabButton active" style="border-radius:999px; padding:7px 14px; font-size:12px; font-family:'VCR OSD Mono', monospace"><i class="fa-solid fa-user-secret"></i> Suspects</button>
               <button onclick="adminTab('ips')" id="admin-tab-ips" role="tab" aria-selected="false" class="TabButton" style="border-radius:999px; padding:7px 14px; font-size:12px; font-family:'VCR OSD Mono', monospace"><i class="fa-solid fa-network-wired"></i> Shared IPs</button>
               <button onclick="adminTab('emails')" id="admin-tab-emails" role="tab" aria-selected="false" class="TabButton" style="border-radius:999px; padding:7px 14px; font-size:12px; font-family:'VCR OSD Mono', monospace"><i class="fa-solid fa-at"></i> Duplicate emails</button>
@@ -779,7 +680,7 @@
             <div id="admin-hint" style="font-size:11px; color:#9aa0b6; font-family:Inter,sans-serif"></div>
             <button onclick="adminRefresh()" class="FunkinButton" style="padding:7px 12px; border-radius:999px; font-size:11px; flex-shrink:0"><i class="fa-solid fa-rotate"></i> Refresh</button>
           </div>
-          <div id="admin-panel" style="background:#0f0f0f; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:12px; overflow-x:auto">
+          <div id="admin-panel" style="background:#1a1d24; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:12px; overflow-x:auto">
             <div style="text-align:center; padding:18px; color:#9aa0b6; font-family:'VCR OSD Mono', monospace; font-size:13px">Loading…</div>
           </div>
         </div>
@@ -838,9 +739,7 @@ const _s=document.createElement('style');_s.textContent='@keyframes blink{0%,100
 <script src="assets/js/app.js" defer></script>
 <script src="assets/js/modpacks.js" defer></script>
 <script src="assets/js/admin.js" defer></script>
-<script src="assets/js/profile.js" defer></script>
 <script src="assets/js/router.js" defer></script>
 <script src="assets/js/motion.js" defer></script>
-<script src="assets/js/ux.js" defer></script>
 </body>
 </html>
